@@ -1,0 +1,14 @@
+.app-bg-primary {
+    background: rgb(242, 101, 34);
+}
+
+.nav-item > .nav-link{
+    /*color: #010616 !important;*/
+    font-weight: bold;
+}
+.nav-item > .nav-link.active{
+    color: #ffffff!important;
+}
+.nav-item > .nav-link:hover{
+    color: #e1e1e1!important;
+}
