@@ -13342,13 +13342,14 @@ textarea.parsley-success:focus {
 }
 
 .br-sideleft {
+  padding-top: 10px;
   position: fixed;
   top: 60px;
   left: -230px;
   bottom: 0;
   z-index: 100;
   width: 230px;
-  background-color: #ffffff;
+  background-color: #2b7a78;
   padding-left: 10px;
   padding-right: 10px;
   transition: all 0.2s ease-in-out;
@@ -13384,7 +13385,7 @@ textarea.parsley-success:focus {
   }
 }
 .br-logo > a {
-  color: #ff0000;
+  color: #2b7a78;
   letter-spacing: -0.5px;
 }
 .br-logo > a i {
@@ -13430,15 +13431,16 @@ textarea.parsley-success:focus {
 }
 
 .br-menu-link {
-  color: #000000;
+  margin-bottom: 2px;
+  color: #e1e1e1;
   display: block;
   font-size: 14px;
   border-radius: 2px;
   transition: all 0.2s ease-in-out;
 }
 .br-menu-link:hover, .br-menu-link:focus {
-  color: #fff;
-  background-color: #ff0000;
+  background-color: #e1e1e1;
+  color: #2b7a78;
 }
 .br-menu-link:focus, .br-menu-link:active {
   outline: none;
@@ -13448,8 +13450,8 @@ textarea.parsley-success:focus {
   color: #fff;
 }
 .br-menu-link.active {
-  background-color: #ff0000;
-  color: #fff;
+  background-color: #f1f1f1;
+  color: #2b7a78;
 }
 
 .br-menu-item {

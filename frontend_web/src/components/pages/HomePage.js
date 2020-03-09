@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import AutoTextArea from "../utils/inputs/AutoTextArea";
 
 @connect((state) => {
     return {

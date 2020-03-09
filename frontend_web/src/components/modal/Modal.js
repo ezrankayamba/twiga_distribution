@@ -12,7 +12,6 @@ class Modal extends Component {
 
     render() {
         const {modalId, handleClose, show, content, title, footer, large, error} = this.props
-        console.log(title)
         const showHideClassName = show ? "modal display-block" : "modal display-none";
         return (
             <div className={showHideClassName} onClick={this.otherClick.bind(this)} id={modalId}>
