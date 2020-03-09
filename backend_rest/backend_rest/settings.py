@@ -15,8 +15,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.99.101', '77.73.68.233']
 # Application definition
 
 INSTALLED_APPS = [
-    'clients.apps.ClientsConfig',
-    'payments.apps.PaymentsConfig',
+    'customers.apps.CustomersConfig',
     'users.apps.UsersConfig',
 
     'django.contrib.admin',

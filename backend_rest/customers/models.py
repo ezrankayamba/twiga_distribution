@@ -14,7 +14,7 @@ class Region(models.Model):
     medium = models.DecimalField(decimal_places=2, max_digits=20)
     large = models.DecimalField(decimal_places=2, max_digits=20)
     xlarge = models.DecimalField(decimal_places=2, max_digits=20)
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, nzull=True)
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
 
     def __str__(self):

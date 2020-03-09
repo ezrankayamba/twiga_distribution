@@ -7,8 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('users/', include('users.urls')),
-    path('clients/', include('clients.urls')),
-    path('payments/', include('payments.urls')),
+    path('customers/', include('customers.urls')),
 ]
 
 if settings.DEBUG:
