@@ -1,2 +1,2 @@
-# Bulk Payment
-A Bulk Payment Portal
+# Distribution  
+A distribution information capture tool
