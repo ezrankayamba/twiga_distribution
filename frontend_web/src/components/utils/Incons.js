@@ -1,7 +1,7 @@
 import React from "react";
 
 export const IconPlus = () => <i className="icon ion-plus-circled tx-24"></i>
-export const IconAdd = () => <i className="icon ion-plus-circled"></i>
+export const IconAdd = () => <i className="icon ion-plus-circled tx-16"></i>
 export const IconTrash = () => <i className="icon ion-trash-b tx-16"></i>
 export const IconHome = () => <i className="icon ion-ios-home-outline"></i>
 export const IconFirst = () => <>|<i className="icon ion-ios-arrow-back"></i></>
@@ -18,4 +18,6 @@ export const IconFile = () => <i className="icon ion-document-text"></i>
 export const IconUpload = () => <i className="icon ion-arrow-up-a"></i>
 export const IconManual = () => <i className="icon ion-grid"></i>
 export const IconClose = () => <i className="ion ion-ios-close-outline tx-24"></i>
+export const IconCaptureLocation = () => <i className="icon ion-android-locate tx-16"></i>
+export const IconMap = () => <i className="icon ion-location tx-16"></i>
 

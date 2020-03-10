@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "./CommonForm.css"
 import {IconClose} from "./Incons";
 import ComputedInput from "./inputs/ComputedInput";
+import InputControl from "./inputs/InputControl";
 
 const validateForm = errors => {
     let valid = true;
@@ -24,6 +25,7 @@ class CommonForm extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.setChanged = this.setChanged.bind(this)
     }
 
     validateOne(name, value) {
@@ -50,9 +52,14 @@ class CommonForm extends Component {
     handleChange(event) {
         event.preventDefault();
         const {name, value} = event.target;
-        let errors = this.validateOne(name, value)
-        this.setState({errors, data: {...this.state.data, [name]: value}});
+        this.setChanged(name, value)
     };
+
+    setChanged(name, value) {
+        console.log(name, value)
+        let errors = this.validateOne(name, value)
+        this.setState({errors, data: {...this.state.data, [name]: value}}, () => console.log(this.state));
+    }
 
     clearFormData() {
         let data = this.state.data
@@ -100,19 +107,10 @@ class CommonForm extends Component {
                     {meta.fields.map(f => {
                         return (
                             <div key={f.name} className="mb-2">
-                                <div className="form-group mb-0">
-                                    <label htmlFor={f.name}>{f.label}</label>
-                                    <ComputedInput field={f}
-                                                   value={data[f.name] ? data[f.name] : ""}
-                                                   name={f.name}
-                                                   id={f.name}
-                                                   className="form-control"
-                                                   onChange={this.handleChange}
-                                                   noValidate/>
-                                    {errors[f.name].length > 0 && (
-                                        <small className="text-danger small">{errors[f.name]}</small>
-                                    )}
-                                </div>
+                                <InputControl field={f} value={data[f.name] ? data[f.name] : ""}
+                                              name={f.name} id={f.name} className="form-control"
+                                              onChange={this.handleChange}
+                                              noValidate errors={errors} setChanged={this.setChanged}/>
                                 {f.info && <div className="info">
                                     <small>{f.info}</small>
                                 </div>}

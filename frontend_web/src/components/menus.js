@@ -1,8 +1,7 @@
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/auth/LoginPage";
 import LogoutPage from "./pages/auth/LogoutPage";
-import ClientsIndexPage from "./pages/clients/ClientsIndexPage";
-import PaymentsIndexPage from "./pages/payments/PaymentsIndexPage";
+import IndexPage from "./pages/customers/IndexPage";
 import React from "react";
 import {IconClient, IconHome, IconPayment, IconSignIn, IconSignOut} from "./utils/Incons";
 import UsersPage from "./pages/auth/UsersPage";
@@ -11,28 +10,22 @@ const getMenus = (loggedIn, privileges) => {
     let pFilter = (m) => {
         return m.privilege === 'Anonymous' || (loggedIn && privileges.includes(m.privilege))
     }
+    let id = 0
+    const getId = () => id++
     let menus = loggedIn ?
         [
-            {id: 1, path: "/home", name: "Home", component: HomePage, Icon: IconHome, privilege: 'Anonymous'},
-            {id: 2, path: "/users", name: "Users", component: UsersPage, Icon: IconHome, privilege: 'BackOffice.manageUser'},
+            {id: getId(), path: "/home", name: "Home", component: HomePage, Icon: IconHome, privilege: 'Anonymous'},
+            {id: getId(), path: "/users", name: "Users", component: UsersPage, Icon: IconHome, privilege: 'Users.manage'},
             {
-                id: 3,
-                path: "/clients",
-                name: "Clients",
-                component: ClientsIndexPage,
+                id: getId(),
+                path: "/customers",
+                name: "Customers",
+                component: IndexPage,
                 Icon: IconClient,
-                privilege: 'BackOffice.viewClients'
+                privilege: 'Customers.manage'
             },
             {
-                id: 4,
-                path: "/payments",
-                name: "Payments",
-                component: PaymentsIndexPage,
-                Icon: IconPayment,
-                privilege: 'Payments.viewPayments'
-            },
-            {
-                id: 5,
+                id: getId(),
                 path: "/logout",
                 name: "Sign Out",
                 component: LogoutPage,
@@ -41,9 +34,9 @@ const getMenus = (loggedIn, privileges) => {
             },
 
         ] : [
-            {id: 1, path: "/home", name: "Home", component: HomePage, Icon: IconHome, privilege: 'Anonymous'},
+            {id: getId(), path: "/home", name: "Home", component: HomePage, Icon: IconHome, privilege: 'Anonymous'},
             {
-                id: 2,
+                id: getId(),
                 path: "/login",
                 name: "Sign In",
                 component: LoginPage,

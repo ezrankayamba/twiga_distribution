@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import LocationFromMap from "./customers/forms/LocationMap";
 
 @connect((state) => {
     return {
@@ -29,6 +30,7 @@ class HomePage extends Component {
                 <div className="">
                     <h5>Home page/dashboard</h5>
                 </div>
+                <LocationFromMap/>
             </div>
         )
     }

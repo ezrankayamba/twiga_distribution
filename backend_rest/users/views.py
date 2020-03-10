@@ -13,7 +13,7 @@ class UserListView(generics.ListCreateAPIView):
     serializer_class = serializers.UserSerializer
 
     def get_queryset(self):
-        return User.objects.filter(client_user__isnull=True).order_by('-date_joined')
+        return User.objects.all().order_by('-date_joined')
 
 
 class RoleListView(generics.ListCreateAPIView):

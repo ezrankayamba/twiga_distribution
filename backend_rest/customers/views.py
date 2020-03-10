@@ -25,3 +25,22 @@ class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return models.Customer.objects.all()
+
+
+class RecordListView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = ['customers']
+    serializer_class = serializers.RecordSerializer
+
+    def get_queryset(self):
+        return models.Record.objects.all()
+
+
+class RecordDetailView(generics.RetrieveUpdateDestroyAPIView):
+    model = models.Record
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = ['customers']
+    serializer_class = serializers.RecordSerializer
+
+    def get_queryset(self):
+        return models.Record.objects.all()

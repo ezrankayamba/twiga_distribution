@@ -118,7 +118,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'projects': 'Access list of projects', 'clients': 'Manage clients', 'payments': 'Manage payments', 'users': 'Manage users'}
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'customers': 'Manage customer and records', 'users': 'Manage users'}
 }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

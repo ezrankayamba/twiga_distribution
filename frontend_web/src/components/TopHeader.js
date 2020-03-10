@@ -20,7 +20,7 @@ class TopHeader extends Component {
                         className="icon ion-navicon-round"></i></a></div>
                     {loggedIn && <>
                         <div className="input-group hidden-xs-down wd-170 transition">
-                            <input id="searchbox" type="text" className="form-control" placeholder="Search"/>
+                            <input id="searchbox" type="text" className="form-control m-auto" placeholder="Search"/>
                             <span className="input-group-btn">
                                 <button className="btn btn-secondary" type="button"><i
                                     className="ion ion-ios-search-strong tx-24"></i></button>

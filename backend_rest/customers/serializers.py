@@ -21,3 +21,10 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Customer
         fields = '__all__'
+
+
+class RecordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Record
+        fields = '__all__'

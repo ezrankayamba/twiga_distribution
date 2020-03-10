@@ -5,7 +5,7 @@ import {fetchRoles} from "../../../_services/AuthService";
 import {connect} from "react-redux";
 import Modal from "../../modal/Modal";
 import CommonForm from "../../utils/CommonForm";
-import {createClientUser} from "../../../_services/ClientsService";
+import {createClientUser} from "../../../_services/CustomersService";
 
 @connect((state) => {
     return {
@@ -13,7 +13,7 @@ import {createClientUser} from "../../../_services/ClientsService";
         loggedIn: state.auth.loggedIn
     }
 })
-class ClientsDetailModal extends Component {
+class DetailModal extends Component {
     constructor(props) {
         super(props);
         this.state = {client: props.client, roles: [], openAdd: false}
@@ -91,4 +91,4 @@ class ClientsDetailModal extends Component {
     }
 }
 
-export default ClientsDetailModal;
+export default DetailModal;

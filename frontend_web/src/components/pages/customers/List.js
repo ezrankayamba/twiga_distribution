@@ -1,23 +1,19 @@
 import React, {Component} from 'react';
 
 import {
-    createClient, createClientUser,
-    deleteClient,
-    deleteSelectedClients,
-    fetchClients,
-    updateClient
-} from "../../../_services/ClientsService";
+    createCustomer, deleteCustomer,
+    fetchCustomers,
+    updateCustomer
+} from "../../../_services/CustomersService";
 import {connect} from "react-redux";
 import BasicCrudView from "../../utils/BasicCrudView";
 import CommonForm from "../../utils/CommonForm";
 import CloseableModel from "../../modal/ClosableModal";
 import LoadingIndicator from "../../utils/LoadingIndicator";
-import dayjs from "dayjs";
-import {DateTime} from "../../../_helpers/DateTime";
 import {IconPlus, IconTrash} from "../../utils/Incons";
-import ClientsDetailModal from "./ClientsDetailModal";
+import DetailModal from "./DetailModal";
 import Modal from "../../modal/Modal";
-import {createUser} from "../../../_services/AuthService";
+import NewCustomerForm from "./forms/NewCustomerForm";
 
 
 @connect((state) => {
@@ -25,7 +21,7 @@ import {createUser} from "../../../_services/AuthService";
         user: state.auth.user
     }
 })
-class ClientList extends Component {
+class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +48,7 @@ class ClientList extends Component {
 
     refresh(page = 1) {
         this.setState({isLoading: true}, () =>
-            fetchClients(this.props.user.token, page, (res) => {
+            fetchCustomers(this.props.user.token, page, (res) => {
                 if (res) {
                     this.setState({
                         clients: res.data, isLoading: false,
@@ -68,14 +64,7 @@ class ClientList extends Component {
 
     onDelete(e, params) {
         e.stopPropagation()
-        deleteClient(this.props.user.token, params.id, (res) => {
-            this.refresh()
-        })
-    }
-
-    doDeleteSelected(params) {
-        deleteSelectedClients(this.props.user.token, params.ids, (res) => {
-            params.cb()
+        deleteCustomer(this.props.user.token, params.id, (res) => {
             this.refresh()
         })
     }
@@ -83,7 +72,7 @@ class ClientList extends Component {
     doAdd(params, cb) {
         this.setState({isLoading: true})
         let body = {...params}
-        createClient(this.props.user.token, body, (res) => {
+        createCustomer(this.props.user.token, body, (res) => {
             if (cb) cb(true)
             this.setState({openAdd: false}, () => this.refresh())
         });
@@ -91,7 +80,7 @@ class ClientList extends Component {
 
     doUpdate(params) {
         let body = {id: params.id, name: params.name, account: params.account}
-        updateClient(this.props.user.token, body, params.id, (res) => {
+        updateCustomer(this.props.user.token, body, params.id, (res) => {
             params.cb()
             this.refresh()
         })
@@ -113,32 +102,18 @@ class ClientList extends Component {
             headers: [
                 {field: 'id', title: 'ID'},
                 {field: 'name', title: 'Name'},
-                {field: 'account', title: 'Account MSISDN'},
+                {field: 'location', title: 'Location'},
+                {field: 'distributor', title: 'Distributor'},
+                {field: 'region', title: 'Region'},
+                {field: 'customer_type', title: 'Type'},
+                {field: 'created_at', title: 'Created'},
                 {
                     field: 'action', title: 'Action',
                     render: rowData => <button className="btn btn-sm btn-link text-danger"
                                                onClick={(e) => this.onDelete(e, rowData)}><IconTrash/></button>
                 },
             ],
-            title: 'List of clients'
-        }
-        let form = {
-            title: "Add Record",
-            fields: [
-                {
-                    name: 'name', label: "Name", validator: {
-                        valid: (val) => val ? val.length >= 3 : false,
-                        error: "Name should be at least 3 characters"
-                    }
-                },
-                {
-                    name: 'account', label: "Account MSISDN", validator: {
-                        valid: (val) => RegExp("^(|255|0)\\d{5,9}$").test(val),
-                        error: "Invalid MSISDN"
-                    }
-                },
-            ],
-            onSubmit: this.doAdd
+            title: 'List of customers'
         }
 
         const pagination = {pages, pageNo, onPageChange: this.onPageChange}
@@ -157,20 +132,15 @@ class ClientList extends Component {
                         </div>
                     </div>
                     <BasicCrudView onRowClick={this.onRowClick.bind(this)} pagination={pagination} data={data}
-                                   onUpdate={this.doUpdate} onDelete={this.doDelete} onAdd={this.doAdd} toolbar={true}/>
+                                   onUpdate={this.doUpdate} onDelete={this.onDelete} onAdd={this.doAdd} toolbar={true}/>
                     {openDetail && selected &&
-                    <Modal title={selected.name} modalId="clientDetailModel" show={openDetail}
+                    <Modal title={selected.name} modalId="customerDetailModel" show={openDetail}
                            handleClose={() => this.setState({
                                selected: null,
                                openDetails: false
                            }, this.refresh)}
-                           content={<ClientsDetailModal client={selected}/>}/>}
-                    {this.state.openAdd && <CloseableModel
-                        modalId="manageRecord"
-                        handleClose={this.onClose}
-                        show={this.state.openAdd}
-                        content={<CommonForm meta={form} onClose={this.onClose}/>}/>
-                    }
+                           content={<DetailModal client={selected}/>}/>}
+                    {this.state.openAdd && <NewCustomerForm onSubmit={this.doAdd} onClose={this.onClose}/>}
                     {this.state.isLoading && <LoadingIndicator isLoading={this.state.isLoading}/>}
                 </div>
             </div>
@@ -178,4 +148,4 @@ class ClientList extends Component {
     }
 }
 
-export default ClientList;
+export default List;
