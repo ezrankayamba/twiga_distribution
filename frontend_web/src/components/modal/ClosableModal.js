@@ -5,6 +5,8 @@ const CloseableModel = ({modalId, handleClose, show, content, ...props}) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
     const otherClick = (e) => {
         if (e.target.id === modalId) {
+            console.log(modalId,e.target.id)
+            e.stopPropagation()
             handleClose(e)
         }
     }

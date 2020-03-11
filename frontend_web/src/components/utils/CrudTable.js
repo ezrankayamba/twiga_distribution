@@ -32,7 +32,7 @@ class CrudTable extends React.Component {
                 {newRecord &&
                 <button className="btn btn-sm btn-link float-right" onClick={newRecord.show}><IconPlus/>
                 </button>}
-                <table className="table table-sm table-hover table-bordered">
+                <table className="table table-sm table-hover table-bordered mb-0">
                     <thead className="border-none">
                     <tr className="border-none">
                         {columns.map(col =>

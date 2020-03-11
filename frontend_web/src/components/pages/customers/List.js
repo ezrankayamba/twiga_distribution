@@ -7,13 +7,12 @@ import {
 } from "../../../_services/CustomersService";
 import {connect} from "react-redux";
 import BasicCrudView from "../../utils/BasicCrudView";
-import CommonForm from "../../utils/CommonForm";
-import CloseableModel from "../../modal/ClosableModal";
 import LoadingIndicator from "../../utils/LoadingIndicator";
 import {IconPlus, IconTrash} from "../../utils/Incons";
-import DetailModal from "./DetailModal";
 import Modal from "../../modal/Modal";
 import NewCustomerForm from "./forms/NewCustomerForm";
+import {DateTime} from "../../../_helpers/DateTime";
+import CRUD from "../../../_services/CRUD";
 
 
 @connect((state) => {
@@ -25,13 +24,12 @@ class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clients: [],
+            customers: [],
             openAdd: false,
             pages: 1,
             pageNo: 1,
             isLoading: false,
-            openDetail: false,
-            selected: null
+            types: []
         }
 
         this.doUpdate = this.doUpdate.bind(this)
@@ -51,7 +49,16 @@ class List extends Component {
             fetchCustomers(this.props.user.token, page, (res) => {
                 if (res) {
                     this.setState({
-                        clients: res.data, isLoading: false,
+                        customers: res.data.map(c => {
+                            return {
+                                ...c,
+                                distributor: c.distributor.name,
+                                region: c.region.name,
+                                created_at: DateTime.fmt(c.created_at),
+                                customer_type: this.state.types.find(t => c.customer_type === t.id).name,
+                                location: `(${c.lat}, ${c.lng})`
+                            }
+                        }), isLoading: false,
                         pages: parseInt(res.pages)
                     })
                 }
@@ -59,7 +66,13 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.refresh()
+        CRUD.list("/types", this.props.user.token,
+            {
+                onSuccess: (types) => {
+                    this.setState({types}, this.refresh)
+                }
+            })
+
     }
 
     onDelete(e, params) {
@@ -96,9 +109,9 @@ class List extends Component {
     }
 
     render() {
-        let {clients, pages, pageNo, openDetail, selected} = this.state;
+        let {customers, pages, pageNo, openDetail, selected} = this.state;
         let data = {
-            records: clients,
+            records: customers,
             headers: [
                 {field: 'id', title: 'ID'},
                 {field: 'name', title: 'Name'},
@@ -109,7 +122,7 @@ class List extends Component {
                 {field: 'created_at', title: 'Created'},
                 {
                     field: 'action', title: 'Action',
-                    render: rowData => <button className="btn btn-sm btn-link text-danger"
+                    render: rowData => <button className="btn btn-sm btn-link text-danger p-0"
                                                onClick={(e) => this.onDelete(e, rowData)}><IconTrash/></button>
                 },
             ],
@@ -133,13 +146,6 @@ class List extends Component {
                     </div>
                     <BasicCrudView onRowClick={this.onRowClick.bind(this)} pagination={pagination} data={data}
                                    onUpdate={this.doUpdate} onDelete={this.onDelete} onAdd={this.doAdd} toolbar={true}/>
-                    {openDetail && selected &&
-                    <Modal title={selected.name} modalId="customerDetailModel" show={openDetail}
-                           handleClose={() => this.setState({
-                               selected: null,
-                               openDetails: false
-                           }, this.refresh)}
-                           content={<DetailModal client={selected}/>}/>}
                     {this.state.openAdd && <NewCustomerForm onSubmit={this.doAdd} onClose={this.onClose}/>}
                     {this.state.isLoading && <LoadingIndicator isLoading={this.state.isLoading}/>}
                 </div>

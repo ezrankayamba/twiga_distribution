@@ -26,8 +26,8 @@ class Region(models.Model):
 
 class Customer(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    lat = models.DecimalField(decimal_places=6, max_digits=20)
-    lng = models.DecimalField(decimal_places=6, max_digits=20)
+    lat = models.DecimalField(decimal_places=8, max_digits=20)
+    lng = models.DecimalField(decimal_places=8, max_digits=20)
     distributor = models.ForeignKey('Distributor', on_delete=models.CASCADE, related_name="customers")
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="customers")
     customer_type = models.CharField(max_length=3, choices=CUSTOMER_TYPES)

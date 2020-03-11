@@ -17,6 +17,9 @@ class DistributorSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    distributor = DistributorSerializer(many=False)
+    region = RegionSerializer(many=False)
+    customer_type = serializers.ChoiceField(choices=models.CUSTOMER_TYPES)
 
     class Meta:
         model = models.Customer

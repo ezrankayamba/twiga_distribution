@@ -30,7 +30,6 @@ class HomePage extends Component {
                 <div className="">
                     <h5>Home page/dashboard</h5>
                 </div>
-                <LocationFromMap/>
             </div>
         )
     }

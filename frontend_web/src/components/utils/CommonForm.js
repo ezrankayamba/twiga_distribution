@@ -3,6 +3,8 @@ import "./CommonForm.css"
 import {IconClose} from "./Incons";
 import ComputedInput from "./inputs/ComputedInput";
 import InputControl from "./inputs/InputControl";
+import {connect} from "react-redux";
+import {addNewOption, clearNewOption} from "../../redux/forms/actions";
 
 const validateForm = errors => {
     let valid = true;
@@ -10,6 +12,11 @@ const validateForm = errors => {
     return valid;
 };
 
+@connect((state) => {
+    return {
+        newOptions: state.forms.newOptions
+    }
+}, {clearNewOption: clearNewOption})
 class CommonForm extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +24,9 @@ class CommonForm extends Component {
         let data = {}
         this.props.meta.fields.forEach((f) => {
             errors[f.name] = ""
-            data[f.name] = null
+            data[f.name] = f.value ? f.value : null
         })
+        console.log(data)
         this.state = {
             data,
             errors: errors
@@ -56,7 +64,7 @@ class CommonForm extends Component {
     };
 
     setChanged(name, value) {
-        console.log(name, value)
+        this.props.clearNewOption(name)
         let errors = this.validateOne(name, value)
         this.setState({errors, data: {...this.state.data, [name]: value}}, () => console.log(this.state));
     }
@@ -88,9 +96,10 @@ class CommonForm extends Component {
 
     render() {
         const {errors, data} = this.state
-        const {meta, onClose} = this.props
+        const {meta, onClose, newOptions} = this.props
         const defaultClose = () => console.log("Not handled...")
         const handleClose = onClose || defaultClose
+
         return (
             <div className="form-wrap bg-light">
                 {meta.title && <div className="form-header p-2">
@@ -102,12 +111,14 @@ class CommonForm extends Component {
                         </button>
                     </div>}
                 </div>}
-
                 <form onSubmit={this.handleSubmit} noValidate className="p-3">
                     {meta.fields.map(f => {
                         return (
                             <div key={f.name} className="mb-2">
-                                <InputControl field={f} value={data[f.name] ? data[f.name] : ""}
+                                <InputControl onShowPopup={this.props.onShowPopup} field={f}
+                                              value={f.other && newOptions && newOptions[f.name] ? newOptions[f.name].id
+                                                  : data[f.name] ? data[f.name] : ""
+                                              }
                                               name={f.name} id={f.name} className="form-control"
                                               onChange={this.handleChange}
                                               noValidate errors={errors} setChanged={this.setChanged}/>

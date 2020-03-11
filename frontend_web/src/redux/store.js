@@ -3,6 +3,7 @@ import authReducer from "./auth/reducers";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from 'redux-thunk';
 import fsmReducer from "./fsm/reducers";
+import formsReducer from "./forms/reducers";
 const STORE_LOCAL_STORAGE = "REDUX"
 
 let loadState = () => {
@@ -17,7 +18,8 @@ let loadState = () => {
 
 const store = createStore(combineReducers({
     auth: authReducer,
-    fsm: fsmReducer
+    fsm: fsmReducer,
+    forms: formsReducer
 }), loadState(), composeWithDevTools(applyMiddleware(thunk)))
 
 store.subscribe(() => {
