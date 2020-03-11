@@ -4,11 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import os
 
-context_path = os.environ.get('DIST_BACKEND_CONTEX_PATH')
-if context_path is None:
-    context_path = ''
-else:
-    context_path = f'{context_path}/'
+context_path = 'backend/'
 
 urlpatterns = [
     path(f'{context_path}admin/', admin.site.urls),
