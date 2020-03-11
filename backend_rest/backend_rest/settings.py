@@ -9,7 +9,7 @@ SECRET_KEY = 'qaj(3tnq=6hrz7u0udx2+09$ug!5e*tjpr_gp$#vbp^0p0zv4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.99.101', '77.73.68.233']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.99.101', '77.73.68.233', 'dist.nezatech.co.tz']
 
 
 # Application definition
@@ -133,4 +133,4 @@ REST_FRAMEWORK = {
 
 
 # CORS
-CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://192.168.99.101:8080', 'http://192.168.99.101:6060', 'http://77.73.68.233:8080', 'http://77.73.68.233:6060']
+CORS_ORIGIN_WHITELIST = ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://192.168.99.101:8080', 'http://192.168.99.101:6060', 'http://77.73.68.233:8080', 'http://77.73.68.233:6060', 'https://dist.nezatech.co.tz']
