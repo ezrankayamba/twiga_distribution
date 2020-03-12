@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import BasicCrudView from "../../utils/BasicCrudView";
 import LoadingIndicator from "../../utils/LoadingIndicator";
 import {IconPlus, IconTrash} from "../../utils/Incons";
-import Modal from "../../modal/Modal";
 import NewCustomerForm from "./forms/NewCustomerForm";
 import {DateTime} from "../../../_helpers/DateTime";
 import CRUD from "../../../_services/CRUD";
@@ -85,6 +84,7 @@ class List extends Component {
     doAdd(params, cb) {
         this.setState({isLoading: true})
         let body = {...params}
+        console.log(body)
         createCustomer(this.props.user.token, body, (res) => {
             if (cb) cb(true)
             this.setState({openAdd: false}, () => this.refresh())

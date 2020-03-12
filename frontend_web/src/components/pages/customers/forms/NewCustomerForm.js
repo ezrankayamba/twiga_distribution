@@ -26,8 +26,6 @@ class NewCustomerForm extends Component {
     }
 
     onOtherSubmit(field, {id, name, ...rest}) {
-        console.log("onOtherSubmit", rest)
-        console.log(field + ":", id, name)
         this.props.addOption(field, {id, name})
     }
 

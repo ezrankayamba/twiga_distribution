@@ -11,7 +11,7 @@ class Pagination extends Component {
             pList.push(i)
         }
         return (
-            <div className="pagination">
+            <div className="pagination mt-2">
                 <div className="btn-group">
                     {pageNo > 1 && <>
                         <button className="btn btn-sm btn-outline-secondary"

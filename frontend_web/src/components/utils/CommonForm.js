@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import "./CommonForm.css"
 import {IconClose} from "./Incons";
-import ComputedInput from "./inputs/ComputedInput";
 import InputControl from "./inputs/InputControl";
 import {connect} from "react-redux";
-import {addNewOption, clearNewOption} from "../../redux/forms/actions";
+import {clearNewOption} from "../../redux/forms/actions";
 
 const validateForm = errors => {
     let valid = true;
@@ -93,6 +92,15 @@ class CommonForm extends Component {
             }
         }
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const {newOptions} = this.props
+        this.props.meta.fields.forEach(({name}) => {
+            if (newOptions[name] && prevState.data[name] !== newOptions[name].id) {
+                this.setState({data: {...this.state.data, [name]: newOptions[name].id}})
+            }
+        })
+    }
 
     render() {
         const {errors, data} = this.state

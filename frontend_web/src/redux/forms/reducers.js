@@ -3,7 +3,6 @@ import {FORMS_CLEAR_ALL_OPTIONS, FORMS_CLEAR_OPTION, FORMS_NEW_OPTION} from "./a
 let initialState = {newOptions: {}}
 
 let formsReducer = (state = initialState, action) => {
-    console.log("Updating forms reducer...", action)
     switch (action.type) {
         case FORMS_NEW_OPTION:
             return {

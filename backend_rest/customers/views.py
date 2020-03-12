@@ -17,6 +17,12 @@ class CustomerListView(generics.ListCreateAPIView):
     def get_queryset(self):
         return models.Customer.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        print(data)
+        customer = models.Customer.objects.create(**data)
+        return Response(self.get_serializer(customer).data)
+
 
 class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     model = models.Customer

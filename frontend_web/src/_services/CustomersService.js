@@ -20,16 +20,21 @@ export const fetchCustomers = (token, page, cb) => {
             cb(false)
         })
 }
-export const createCustomer = (token, {location, ...rest}, cb) => {
+export const createCustomer = (token, {location, distributor, region, ...rest}, cb) => {
     const locRegex = /^\(([-\d.]+), ([-\d.]+)\)$/
     let match = location.match(locRegex)
-    let loc = {}
-    if (match.length === 3) {
-        loc['lat'] = parseFloat(match[1]).toFixed(8)
-        loc['lng'] = parseFloat(match[2]).toFixed(8)
+    let extras = {
+        distributor_id: distributor ? parseInt(`${distributor}`) : null,
+        region_id: region ? parseInt(`${region}`) : null
     }
-    console.log(loc)
-    apiPost(url, {...rest, ...loc}, token)
+    if (match.length === 3) {
+        extras['lat'] = parseFloat(match[1]).toFixed(8)
+        extras['lng'] = parseFloat(match[2]).toFixed(8)
+    }
+
+    let body = {...rest, ...extras}
+    console.log(body)
+    apiPost(url, body, token)
         .then(cb)
         .catch(e => {
             console.error(e)

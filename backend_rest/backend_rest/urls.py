@@ -11,6 +11,7 @@ urlpatterns = [
     path(f'{context_path}oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path(f'{context_path}users/', include('users.urls')),
     path(f'{context_path}', include('customers.urls')),
+    path('', include('web.urls')),
 ]
 
 if settings.DEBUG:

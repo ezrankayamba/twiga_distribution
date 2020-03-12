@@ -27,11 +27,11 @@ module.exports = {
         }),
         new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
         new CopyPlugin([
-            {from: 'static', to: 'static'},
+            {from: 'static', to: ''},
         ]),
     ],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../backend_rest/web/static'),
     },
 };
