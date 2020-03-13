@@ -20,4 +20,5 @@ export const IconManual = () => <i className="icon ion-grid"></i>
 export const IconClose = () => <i className="ion ion-ios-close-outline tx-24"></i>
 export const IconCaptureLocation = () => <i className="icon ion-android-locate tx-16"></i>
 export const IconMap = () => <i className="icon ion-location tx-16"></i>
+export const IconLoading = () => <div className="loading"><i></i><span>Loading ...</span></div>
 

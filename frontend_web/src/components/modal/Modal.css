@@ -18,6 +18,12 @@
     text-align: left;
 }
 
+@media only screen and (max-width: 600px) {
+    .modal-main {
+        min-width: 80%;
+    }
+}
+
 .display-block {
     display: inline-block;
 }

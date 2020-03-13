@@ -135,7 +135,7 @@ class List extends Component {
                 <div className="col">
                     <div className="row pt-2 pb-2 d-flex">
                         <div className="col-md">
-                            <h5>List of clients</h5>
+                            <h5>{data.title}</h5>
                         </div>
                         <div className="col-md">
                             <div className="btn-group float-md-right">
