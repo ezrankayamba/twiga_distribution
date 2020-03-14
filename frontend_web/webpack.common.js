@@ -16,7 +16,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Production',
-            template: "index0.html",
+            template: "index.html",
             filename: "index.html",
             inject: 'body'
         }),
@@ -31,7 +31,7 @@ module.exports = {
         ]),
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: 'bundles/[name].bundle.js',
         path: path.resolve(__dirname, '../backend_rest/web/static'),
     },
 };
