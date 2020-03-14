@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
+const EventHooksPlugin = require('event-hooks-webpack-plugin');
+const { PromiseTask } = require('event-hooks-webpack-plugin/lib/tasks');
+const fs = require('fs');
 module.exports = {
     optimization: {
         minimize: true
@@ -29,9 +32,17 @@ module.exports = {
         new CopyPlugin([
             {from: 'static', to: ''},
         ]),
+        new EventHooksPlugin({
+            done: new PromiseTask(async () => {
+                fs.copyFile('../backend_rest/web/static/index.html', '../backend_rest/web/templates/web/index.html', (err) => {
+                    if (err) throw err;
+                    console.log('File was copied successfully');
+                });
+            })
+        })
     ],
     output: {
-        filename: 'bundles/[name].bundle.js',
+        filename: 'static/[name].bundle.js',
         path: path.resolve(__dirname, '../backend_rest/web/static'),
     },
 };
