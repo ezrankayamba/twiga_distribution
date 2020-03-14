@@ -5269,7 +5269,7 @@ a.bg-success:focus, a.bg-success:hover {
 }
 
 .bg-info {
-    background-color: #ff0000 !important;
+    background-color: #2b7a78 !important;
 }
 
 a.bg-info:focus, a.bg-info:hover {
@@ -14321,7 +14321,7 @@ textarea.parsley-success:focus {
     left: 0;
     z-index: 1030;
     background-color: #fff;
-    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.16);
     display: flex;
     align-items: center;
     justify-content: space-between;
