@@ -2,7 +2,7 @@ server {
     listen 80;
     server_name [domain_name];
     location /static/ {
-         alias /home/ubuntu/apps/[project_name]/backend_rest/;
+         alias /home/ubuntu/apps/[project_name]/backend_rest/static/;
     }
 
     location / {
