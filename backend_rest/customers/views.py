@@ -42,6 +42,12 @@ class RecordListView(generics.ListCreateAPIView):
     def get_queryset(self):
         return models.Record.objects.all()
 
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        print(data)
+        record = models.Record.objects.create(**data)
+        return Response(self.get_serializer(record).data)
+
 
 class RecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     model = models.Record

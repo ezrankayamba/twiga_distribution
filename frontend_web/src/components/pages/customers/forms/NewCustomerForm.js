@@ -6,6 +6,7 @@ import NewRegionForm from "./NewRegionForm";
 import {connect} from "react-redux";
 import CRUD from "../../../../_services/CRUD";
 import {addNewOption, clearNewOptions} from "../../../../redux/forms/actions";
+import {createCustomer} from "../../../../_services/CustomersService";
 
 @connect((state) => {
     return {
@@ -14,7 +15,18 @@ import {addNewOption, clearNewOptions} from "../../../../redux/forms/actions";
 }, {addOption: addNewOption, clearOptions:clearNewOptions})
 class NewCustomerForm extends Component {
     state = {popup: null, distributors: [], regions: [], types: []}
-
+    onSubmit(data) {
+        console.log(data)
+        createCustomer(this.props.user.token, data, (res) => {
+            if(res){
+                if (this.props.onOtherSubmit) {
+                    this.props.onOtherSubmit(res)
+                }
+                this.props.onClose(data)
+            }
+            this.setState({openAdd: false}, () => this.refresh())
+        });
+    }
     componentDidMount() {
         CRUD.list("/distributors", this.props.user.token,
             {onSuccess: (distributors) => this.setState({distributors})})
@@ -64,7 +76,7 @@ class NewCustomerForm extends Component {
                 },
                 {name: 'customer_type', label: "Type", type: 'select', options: types, value: "RET"},
             ],
-            onSubmit: onSubmit
+            onSubmit: onSubmit?onSubmit:this.onSubmit.bind(this)
         }
         const onClose = this.props.onClose
         const {popup} = this.state

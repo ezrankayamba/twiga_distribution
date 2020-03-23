@@ -1,9 +1,10 @@
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/auth/LoginPage";
 import LogoutPage from "./pages/auth/LogoutPage";
-import IndexPage from "./pages/customers/IndexPage";
+import CustomersIndex from "./pages/customers/IndexPage";
+import RecordsIndex from "./pages/records/IndexPage";
 import React from "react";
-import {IconClient, IconHome, IconPayment, IconSignIn, IconSignOut} from "./utils/Incons";
+import {IconClient, IconFile, IconHome, IconPayment, IconSignIn, IconSignOut} from "./utils/Incons";
 import UsersPage from "./pages/auth/UsersPage";
 
 const getMenus = (loggedIn, privileges) => {
@@ -20,8 +21,16 @@ const getMenus = (loggedIn, privileges) => {
                 id: getId(),
                 path: "/customers",
                 name: "Customers",
-                component: IndexPage,
+                component: CustomersIndex,
                 Icon: IconClient,
+                privilege: 'Customers.manage'
+            },
+            {
+                id: getId(),
+                path: "/records",
+                name: "Records",
+                component: RecordsIndex,
+                Icon: IconFile,
                 privilege: 'Customers.manage'
             },
             {

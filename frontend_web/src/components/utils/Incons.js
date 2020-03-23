@@ -14,7 +14,7 @@ export const IconSignOut = () => <i className="icon ion-power"></i>
 export const IconSignIn = () => <i className="icon ion-power"></i>
 export const IconSettings = () => <i className="icon ion-ios-gear"></i>
 export const IconPerson = () => <i className="icon ion-ios-person"></i>
-export const IconFile = () => <i className="icon ion-document-text"></i>
+export const IconFile = () => <i className="icon ion-document-text tx-16"></i>
 export const IconUpload = () => <i className="icon ion-arrow-up-a"></i>
 export const IconManual = () => <i className="icon ion-grid"></i>
 export const IconClose = () => <i className="ion ion-ios-close-outline tx-24"></i>
