@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ComputedInput from "./ComputedInput";
-import {IconAdd, IconCaptureLocation, IconMap} from "../Incons";
+import {IconAdd, IconCaptureLocation, IconMap} from "../icons/Incons";
 import LocationUtils from "../../../_helpers/LocationUtils";
 import {connect} from "react-redux";
 
@@ -55,7 +55,7 @@ class InputControl extends Component {
                 </div>}
             </label>
             <ComputedInput field={field} {...rest} newOptions={newOptions}/>
-            {errors[field.name].length > 0 && (
+            {errors && errors[field.name].length > 0 && (
                 <small className="text-danger small">{errors[field.name]}</small>
             )}
         </div>

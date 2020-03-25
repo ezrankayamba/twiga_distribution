@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {IconPerson, IconSettings, IconSignOut} from "./utils/Incons";
+import {IconPerson, IconSettings, IconSignOut} from "../utils/icons/Incons";
 
 @connect((state) => {
     return {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Route, Switch, Redirect} from "react-router-dom";
 import getMenus from "./menus";
 import {connect} from "react-redux";
-import {getPrivileges} from "../_services/AuthService";
+import {getPrivileges} from "../../_services/AuthService";
 
 @connect((state) => {
     return {

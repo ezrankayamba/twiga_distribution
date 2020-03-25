@@ -3,8 +3,8 @@ import {BASE_URL} from "../conf";
 
 let url = `${BASE_URL}/records`
 
-export const fetchRecords = (token, page, cb) => {
-    apiGetPaginated(url, token, page)
+export const fetchRecords = (token, page, filter, cb) => {
+    apiGetPaginated(url, token, page, filter)
         .then(res => {
             if (res.status === 200) {
                 let {pages, records} = res.headers
@@ -20,7 +20,7 @@ export const fetchRecords = (token, page, cb) => {
             cb(false)
         })
 }
-export const createRecord = (token, { customer,...rest}, cb) => {
+export const createRecord = (token, {customer, ...rest}, cb) => {
     let extras = {
         customer_id: customer ? parseInt(`${customer}`) : null,
     }

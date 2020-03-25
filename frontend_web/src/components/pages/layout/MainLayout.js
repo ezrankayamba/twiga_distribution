@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Pages from "../../Pages";
-import TopHeader from "../../TopHeader";
-import SideMenu from "../../SideMenu";
+import Pages from "../../menus/Pages";
+import TopHeader from "../../menus/TopHeader";
+import SideMenu from "../../menus/SideMenu";
 
 class MainLayout extends Component {
     render() {

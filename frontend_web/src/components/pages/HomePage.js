@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import LocationFromMap from "./customers/forms/LocationMap";
-import {IconLoading} from "../utils/Incons";
-import LoadingIndicator from "../utils/LoadingIndicator";
+import {IconLoading} from "../utils/icons/Incons";
+import LoadingIndicator from "../utils/loading/LoadingIndicator";
 
 @connect((state) => {
     return {

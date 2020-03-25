@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import CommonForm from "../../utils/CommonForm";
-import LoadingIndicator from "../../utils/LoadingIndicator";
+import CommonForm from "../../utils/form/CommonForm";
+import LoadingIndicator from "../../utils/loading/LoadingIndicator";
 import Snackbar from "../../utils/notify/Snackbar";
-import BasicCrudView from "../../utils/BasicCrudView";
+import BasicCrudView from "../../utils/crud/BasicCrudView";
 import {createUser, deleteUser, fetchRoles, fetchUsers} from "../../../_services/AuthService";
-import {IconPlus, IconTrash} from "../../utils/Incons";
+import {IconPlus, IconTrash} from "../../utils/icons/Incons";
 import Modal from "../../modal/Modal";
 
 @connect((state) => {

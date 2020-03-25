@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CommonForm from "../../../utils/CommonForm";
+import CommonForm from "../../../utils/form/CommonForm";
 import CloseableModel from "../../../modal/ClosableModal";
 import NewDistributorForm from "./NewDistributorForm";
 import NewRegionForm from "./NewRegionForm";

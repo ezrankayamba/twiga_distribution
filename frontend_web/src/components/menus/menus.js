@@ -1,11 +1,11 @@
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/auth/LoginPage";
-import LogoutPage from "./pages/auth/LogoutPage";
-import CustomersIndex from "./pages/customers/IndexPage";
-import RecordsIndex from "./pages/records/IndexPage";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/auth/LoginPage";
+import LogoutPage from "../pages/auth/LogoutPage";
+import CustomersIndex from "../pages/customers/IndexPage";
+import RecordsIndex from "../pages/records/IndexPage";
 import React from "react";
-import {IconClient, IconFile, IconHome, IconPayment, IconSignIn, IconSignOut} from "./utils/Incons";
-import UsersPage from "./pages/auth/UsersPage";
+import {IconClient, IconFile, IconHome, IconPayment, IconSignIn, IconSignOut} from "../utils/icons/Incons";
+import UsersPage from "../pages/auth/UsersPage";
 
 const getMenus = (loggedIn, privileges) => {
     let pFilter = (m) => {

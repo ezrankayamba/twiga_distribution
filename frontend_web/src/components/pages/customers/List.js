@@ -6,9 +6,9 @@ import {
     updateCustomer
 } from "../../../_services/CustomersService";
 import {connect} from "react-redux";
-import BasicCrudView from "../../utils/BasicCrudView";
-import LoadingIndicator from "../../utils/LoadingIndicator";
-import {IconPlus, IconTrash} from "../../utils/Incons";
+import BasicCrudView from "../../utils/crud/BasicCrudView";
+import LoadingIndicator from "../../utils/loading/LoadingIndicator";
+import {IconPlus, IconTrash} from "../../utils/icons/Incons";
 import NewCustomerForm from "./forms/NewCustomerForm";
 import {DateTime} from "../../../_helpers/DateTime";
 import CRUD from "../../../_services/CRUD";
@@ -24,6 +24,8 @@ class List extends Component {
         super(props);
         this.state = {
             customers: [],
+            distributors: [],
+            regions: [],
             openAdd: false,
             pages: 1,
             pageNo: 1,
@@ -43,9 +45,13 @@ class List extends Component {
         this.refresh(pageNo)
     }
 
-    refresh(page = 1) {
+    onSearch(data) {
+        this.refresh(1, data)
+    }
+
+    refresh(page = 1, filter=null) {
         this.setState({isLoading: true}, () =>
-            fetchCustomers(this.props.user.token, page, (res) => {
+            fetchCustomers(this.props.user.token, page, filter,(res) => {
                 if (res) {
                     this.setState({
                         customers: res.data.map(c => {
@@ -65,10 +71,23 @@ class List extends Component {
     }
 
     componentDidMount() {
+
         CRUD.list("/types", this.props.user.token,
             {
                 onSuccess: (types) => {
                     this.setState({types}, this.refresh)
+                }
+            })
+        CRUD.list("/distributors", this.props.user.token,
+            {
+                onSuccess: (distributors) => {
+                    this.setState({distributors})
+                }
+            })
+        CRUD.list("/regions", this.props.user.token,
+            {
+                onSuccess: (regions) => {
+                    this.setState({regions})
                 }
             })
 
@@ -109,16 +128,43 @@ class List extends Component {
     }
 
     render() {
-        let {customers, pages, pageNo, openDetail, selected} = this.state;
+        let {customers, pages, pageNo, distributors, regions, types} = this.state;
         let data = {
             records: customers,
             headers: [
                 {field: 'id', title: 'ID'},
-                {field: 'name', title: 'Name'},
+                {
+                    field: 'name', title: 'Name', search: {
+                        type: 'input',
+                        label: 'Customer Name',
+                        name: 'name'
+                    }
+                },
                 {field: 'location', title: 'Location'},
-                {field: 'distributor', title: 'Distributor'},
-                {field: 'region', title: 'Region'},
-                {field: 'customer_type', title: 'Type'},
+                {
+                    field: 'distributor', title: 'Distributor', search: {
+                        type: 'select',
+                        label: 'Distributor',
+                        options: distributors,
+                        name: 'distributor'
+                    }
+                },
+                {
+                    field: 'region', title: 'Region', search: {
+                        type: 'select',
+                        label: 'Region',
+                        options: regions,
+                        name: 'region'
+                    }
+                },
+                {
+                    field: 'customer_type', title: 'Type', search: {
+                        type: 'select',
+                        label: 'Type',
+                        options: types,
+                        name: 'customer_type'
+                    }
+                },
                 {field: 'created_at', title: 'Created'},
                 {
                     field: 'action', title: 'Action',
@@ -126,7 +172,8 @@ class List extends Component {
                                                onClick={(e) => this.onDelete(e, rowData)}><IconTrash/></button>
                 },
             ],
-            title: 'List of customers'
+            title: 'List of customers',
+            onSearch: this.onSearch.bind(this)
         }
 
         const pagination = {pages, pageNo, onPageChange: this.onPageChange}
@@ -134,11 +181,11 @@ class List extends Component {
             <div className="row">
                 <div className="col">
                     <div className="row pt-2 pb-2 d-flex">
-                        <div className="col-md">
+                        <div className="col">
                             <h5>{data.title}</h5>
                         </div>
-                        <div className="col-md">
-                            <div className="btn-group float-md-right">
+                        <div className="col">
+                            <div className="btn-group float-right">
                                 <button className="btn btn-link p-0" onClick={() => this.setState({openAdd: true})}>
                                     <IconPlus/></button>
                             </div>

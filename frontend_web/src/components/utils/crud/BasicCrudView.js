@@ -1,5 +1,5 @@
 import React from 'react';
-import {SimpleDialog} from "./SimpleDialog";
+import {SimpleDialog} from "../../modal/SimpleDialog";
 import CrudTable from "./CrudTable";
 import PropTypes from 'prop-types';
 
@@ -29,7 +29,7 @@ class BasicCrudView extends React.Component {
     }
 
     render() {
-        const {headers, records, title} = this.props.data
+        const {headers, records, title, onSearch} = this.props.data
         const {isLoading, onRowClick, pagination} = this.props
         const {open} = this.state
         let options = this.props.options ? this.props.options : {}
@@ -47,6 +47,7 @@ class BasicCrudView extends React.Component {
                         ...options
                     }}
                     onRowClick={onRowClick}
+                    onSearch={onSearch}
                 />
                 <SimpleDialog open={open} handleClose={this.handleClose} handleOk={this.handleOk} title="Confirmation"
                               description="Are you sure you want to delete selected records?"/>
@@ -54,6 +55,7 @@ class BasicCrudView extends React.Component {
         );
     }
 }
+
 BasicCrudView.propTypes = {
     name: PropTypes.string
 };

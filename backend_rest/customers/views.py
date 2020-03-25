@@ -15,7 +15,20 @@ class CustomerListView(generics.ListCreateAPIView):
     serializer_class = serializers.CustomerSerializer
 
     def get_queryset(self):
-        return models.Customer.objects.all()
+        name = self.request.GET.get('name', '')
+        distributor = self.request.GET.get('distributor', None)
+        region = self.request.GET.get('region', None)
+        distributor = self.request.GET.get('distributor', None)
+        customer_type = self.request.GET.get('customer_type', None)
+        filt = {'name__contains': name}
+        if region:
+            filt['region_id'] = region
+        if distributor:
+            filt['distributor_id'] = distributor
+        if customer_type:
+            filt['customer_type'] = customer_type
+
+        return models.Customer.objects.filter(**filt)
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -40,7 +53,12 @@ class RecordListView(generics.ListCreateAPIView):
     serializer_class = serializers.RecordSerializer
 
     def get_queryset(self):
-        return models.Record.objects.all()
+        remarks = self.request.GET.get('remarks', '')
+        customer = self.request.GET.get('customer', None)
+        filt = {'remarks__contains': remarks}
+        if customer:
+            filt['customer_id'] = customer
+        return models.Record.objects.filter(**filt)
 
     def create(self, request, *args, **kwargs):
         data = request.data

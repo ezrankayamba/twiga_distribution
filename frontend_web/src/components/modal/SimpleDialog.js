@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../modal/Modal";
+import Modal from "./Modal";
 
 export const SimpleDialog = (props) => {
     const {title, description, open, handleClose, handleOk} = props

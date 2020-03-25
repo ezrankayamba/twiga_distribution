@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {logout} from "../redux/auth/actions";
+import {logout} from "../../redux/auth/actions";
 import getMenus from "./menus";
 import {NavLink} from "react-router-dom";
-import {getPrivileges} from "../_services/AuthService";
+import {getPrivileges} from "../../_services/AuthService";
 
 @connect((state) => {
     return {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IconLoading} from "./Incons";
+import {IconLoading} from "../icons/Incons";
 
 class LoadingIndicator extends Component {
     render() {

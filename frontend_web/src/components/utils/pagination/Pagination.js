@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IconFirst, IconLast, IconNext, IconPrev} from "./Incons";
+import {IconFirst, IconLast, IconNext, IconPrev} from "../icons/Incons";
 
 class Pagination extends Component {
     render() {

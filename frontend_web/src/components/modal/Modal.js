@@ -1,6 +1,6 @@
 import "./Modal.css"
 import React, {Component} from 'react';
-import {IconClose} from "../utils/Incons";
+import {IconClose} from "../utils/icons/Incons";
 
 class Modal extends Component {
     otherClick(e) {

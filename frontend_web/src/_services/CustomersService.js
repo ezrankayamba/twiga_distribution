@@ -3,8 +3,8 @@ import {BASE_URL} from "../conf";
 
 let url = `${BASE_URL}/customers`
 
-export const fetchCustomers = (token, page, cb) => {
-    apiGetPaginated(url, token, page)
+export const fetchCustomers = (token, page, filter, cb) => {
+    apiGetPaginated(url, token, page, filter)
         .then(res => {
             if (res.status === 200) {
                 let {pages, records} = res.headers
@@ -16,7 +16,7 @@ export const fetchCustomers = (token, page, cb) => {
                 throw Error("Failure response: " + res.status)
         })
         .catch(e => {
-            console.error(e)
+            console.error("Error", e)
             cb(false)
         })
 }

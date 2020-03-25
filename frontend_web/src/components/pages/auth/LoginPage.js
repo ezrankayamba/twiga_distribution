@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 import {login, logout} from "../../../redux/auth/actions";
 import {connect} from "react-redux";
-import CommonForm from "../../utils/CommonForm";
-import LoadingIndicator from "../../utils/LoadingIndicator";
+import CommonForm from "../../utils/form/CommonForm";
+import LoadingIndicator from "../../utils/loading/LoadingIndicator";
 import Snackbar from "../../utils/notify/Snackbar";
 
 @connect((state) => {
@@ -62,7 +62,7 @@ class LoginPage extends Component {
         }
         return (
             <div className="row mt-3">
-                <div className="col-md-6 offset-md-3"><CommonForm meta={form}/></div>
+                <div className="col-md-6 offset-md-3 ml-auto mr-auto"><CommonForm meta={form}/></div>
                 <LoadingIndicator isLoading={isLoading}/>
                 {snackbar && <Snackbar message={snackbar.message} timeout={snackbar.timeout} done={this.snackDone}
                                        error={snackbar.error}/>}

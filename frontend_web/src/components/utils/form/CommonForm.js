@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import "./CommonForm.css"
-import {IconClose} from "./Incons";
-import InputControl from "./inputs/InputControl";
+import InputControl from "../inputs/InputControl";
 import {connect} from "react-redux";
-import {clearNewOption} from "../../redux/forms/actions";
+import {clearNewOption} from "../../../redux/forms/actions";
+import {IconClose} from "../icons/Incons";
 
 const validateForm = errors => {
     let valid = true;
@@ -25,7 +25,6 @@ class CommonForm extends Component {
             errors[f.name] = ""
             data[f.name] = f.value ? f.value : null
         })
-        console.log(data)
         this.state = {
             data,
             errors: errors

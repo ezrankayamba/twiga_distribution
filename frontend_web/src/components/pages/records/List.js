@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 
 import {connect} from "react-redux";
-import BasicCrudView from "../../utils/BasicCrudView";
-import LoadingIndicator from "../../utils/LoadingIndicator";
-import {IconPlus, IconTrash} from "../../utils/Incons";
+import BasicCrudView from "../../utils/crud/BasicCrudView";
+import LoadingIndicator from "../../utils/loading/LoadingIndicator";
+import {IconPlus, IconTrash} from "../../utils/icons/Incons";
 import NewRecordForm from "./forms/NewRecordForm";
 import {DateTime} from "../../../_helpers/DateTime";
-import {createRecord, deleteRecord, fetchRecords} from "../../../_services/RecordsService";
+import {createRecord, deleteRecord, fetchRecords, fetchRecordsFilter} from "../../../_services/RecordsService";
+import CRUD from "../../../_services/CRUD";
+import Numbers from "../../../_helpers/Numbers";
 
 
 @connect((state) => {
@@ -23,7 +25,7 @@ class List extends Component {
             pages: 1,
             pageNo: 1,
             isLoading: false,
-            types: []
+            customers:[]
         }
 
         // this.doUpdate = this.doUpdate.bind(this)
@@ -32,8 +34,11 @@ class List extends Component {
         this.doAdd = this.doAdd.bind(this)
         this.onDelete = this.onDelete.bind(this)
     }
+
     componentDidMount() {
         this.refresh()
+        CRUD.list("/customers", this.props.user.token,
+            {onSuccess: (customers) => this.setState({customers})})
     }
 
     onPageChange(pageNo) {
@@ -41,9 +46,12 @@ class List extends Component {
         this.refresh(pageNo)
     }
 
-    refresh(page = 1) {
+    onSearch(data){
+        this.refresh(1, data)
+    }
+    refresh(page = 1, filter=null) {
         this.setState({isLoading: true}, () =>
-            fetchRecords(this.props.user.token, page, (res) => {
+            fetchRecords(this.props.user.token, page, filter,(res) => {
                 if (res) {
                     this.setState({
                         records: res.data.map(c => {
@@ -51,6 +59,7 @@ class List extends Component {
                                 ...c,
                                 customer: c.customer.name,
                                 created_at: DateTime.fmt(c.created_at),
+                                volume: Numbers.fmt(c.volume)
                             }
                         }), isLoading: false,
                         pages: parseInt(res.pages)
@@ -86,22 +95,36 @@ class List extends Component {
     }
 
     render() {
-        let {records, pages, pageNo} = this.state;
+        let {records, pages, pageNo, customers} = this.state;
         let data = {
             records: records,
             headers: [
                 {field: 'id', title: 'ID'},
-                {field: 'customer', title: 'Customer'},
+                {
+                    field: 'customer', title: 'Customer', search: {
+                        type: 'select',
+                        label: 'Customer',
+                        options: customers,
+                        name:'customer'
+                    }
+                },
                 {field: 'volume', title: 'Volume'},
-                {field: 'remarks', title: 'Remarks'},
+                {
+                    field: 'remarks', title: 'Remarks', search: {
+                        type: 'input',
+                        label: 'Remarks',
+                        name:'remarks'
+                    }
+                },
                 {field: 'created_at', title: 'Created'},
                 {
-                    field: 'action', title: 'Action',
+                    field: 'action', title: '',
                     render: rowData => <button className="btn btn-sm btn-link text-danger p-0"
                                                onClick={(e) => this.onDelete(e, rowData)}><IconTrash/></button>
                 },
             ],
-            title: 'List of records'
+            title: 'List of records',
+            onSearch: this.onSearch.bind(this)
         }
 
         const pagination = {pages, pageNo, onPageChange: this.onPageChange}
@@ -109,11 +132,11 @@ class List extends Component {
             <div className="row">
                 <div className="col">
                     <div className="row pt-2 pb-2 d-flex">
-                        <div className="col-md">
+                        <div className="col">
                             <h5>{data.title}</h5>
                         </div>
-                        <div className="col-md">
-                            <div className="btn-group float-md-right">
+                        <div className="col">
+                            <div className="btn-group float-right">
                                 <button className="btn btn-link p-0" onClick={() => this.setState({openAdd: true})}>
                                     <IconPlus/></button>
                             </div>
