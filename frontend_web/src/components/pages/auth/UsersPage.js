@@ -122,18 +122,17 @@ class UsersPage extends Component {
             <div className="row">
                 <div className="col">
                     <div className="row pt-2 pb-2 d-flex">
-                        <div className="col-md">
+                        <div className="col">
                             <h5>List of users</h5>
                         </div>
-                        <div className="col-md">
-                            <div className="btn-group float-md-right">
+                        <div className="col-1">
+                            <div className="btn-group float-right">
                                 <button className="btn btn-link p-0" onClick={() => this.setState({openAdd: true})}>
                                     <IconPlus/></button>
                             </div>
                         </div>
                     </div>
                     <BasicCrudView title={data.title} data={data} pagination={pagination}
-                                   onDeleteAll={this.doDeleteSelected}
                                    isLoading={isLoading} onRowClick={this.onRowClick.bind(this)}/>
                     <LoadingIndicator isLoading={isLoading}/>
                     {snackbar && <Snackbar message={snackbar.message} timeout={snackbar.timeout} done={this.snackDone}

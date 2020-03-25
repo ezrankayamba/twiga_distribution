@@ -184,7 +184,7 @@ class List extends Component {
                         <div className="col">
                             <h5>{data.title}</h5>
                         </div>
-                        <div className="col">
+                        <div className="col-1">
                             <div className="btn-group float-right">
                                 <button className="btn btn-link p-0" onClick={() => this.setState({openAdd: true})}>
                                     <IconPlus/></button>
