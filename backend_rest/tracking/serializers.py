@@ -1,33 +1,36 @@
 from . import models
 from rest_framework import serializers
 from users.serializers import UserSerializer
+from setups.serializers import CategorySerializer, RegionSerializer, BrandSerializer
 
 
-class RegionSerializer(serializers.ModelSerializer):
+class ContactSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = models.Region
+        model = models.Contact
         fields = '__all__'
 
 
-class DistributorSerializer(serializers.ModelSerializer):
+class DescriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Distributor
+        model = models.Description
         fields = '__all__'
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    distributor = DistributorSerializer(many=False, read_only=True)
+    category = CategorySerializer
     region = RegionSerializer(many=False, read_only=True)
-    customer_type = serializers.ChoiceField(choices=models.CUSTOMER_TYPES)
 
     class Meta:
         model = models.Customer
         fields = '__all__'
+        depth = 3
 
 
 class RecordSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(many=False, read_only=True)
+    brand = BrandSerializer(many=False, read_only=True)
 
     class Meta:
         model = models.Record

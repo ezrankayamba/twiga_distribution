@@ -1,102 +1,160 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import CommonForm from "../../../utils/form/CommonForm";
-import CloseableModel from "../../../modal/ClosableModal";
-import NewDistributorForm from "./NewDistributorForm";
-import NewRegionForm from "./NewRegionForm";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import CRUD from "../../../../_services/CRUD";
-import {addNewOption, clearNewOptions} from "../../../../redux/forms/actions";
-import {createCustomer} from "../../../../_services/CustomersService";
+import { addNewOption, clearNewOptions } from "../../../../redux/forms/actions";
+import { createCustomer } from "../../../../_services/CustomersService";
 
-@connect((state) => {
+@connect(
+  (state) => {
     return {
-        user: state.auth.user
-    }
-}, {addOption: addNewOption, clearOptions:clearNewOptions})
+      user: state.auth.user,
+    };
+  },
+  { addOption: addNewOption, clearOptions: clearNewOptions }
+)
 class NewCustomerForm extends Component {
-    state = {popup: null, distributors: [], regions: [], types: []}
-    onSubmit(data) {
-        console.log(data)
-        createCustomer(this.props.user.token, data, (res) => {
-            if(res){
-                if (this.props.onOtherSubmit) {
-                    this.props.onOtherSubmit(res)
-                }
-                this.props.onClose(data)
-            }
-            this.setState({openAdd: false}, () => this.refresh())
-        });
-    }
-    componentDidMount() {
-        CRUD.list("/distributors", this.props.user.token,
-            {onSuccess: (distributors) => this.setState({distributors})})
-        CRUD.list("/regions", this.props.user.token,
-            {onSuccess: (regions) => this.setState({regions})})
-        CRUD.list("/types", this.props.user.token,
-            {onSuccess: (types) => this.setState({types})})
-        this.props.clearOptions()
-    }
+  state = { popup: null, suppliers: [], regions: [], types: [], districts: [] };
+  onSubmit(data) {
+    this.props.onTabSubmit(data);
+  }
 
-    onOtherSubmit(field, {id, name, ...rest}) {
-        this.props.addOption(field, {id, name})
-    }
+  componentDidMount() {
+    const data = this.props.data || {};
+    CRUD.list("/tracking/suppliers", this.props.user.token, {
+      onSuccess: (suppliers) => this.setState({ suppliers }),
+    });
+    CRUD.list("/setups/regions", this.props.user.token, {
+      onSuccess: (regions) =>
+        this.setState({ regions }, () => {
+          let region_id = data.region ? data.region.id : data.region_id;
+          let region = regions.find(
+            (r) => region_id && r.id === parseInt(region_id)
+          );
+          this.setState({ districts: region ? region.districts : [] });
+        }),
+    });
+    CRUD.list("/setups/categories", this.props.user.token, {
+      onSuccess: (categories) => this.setState({ categories }),
+    });
+    this.props.clearOptions();
+  }
 
-    onClose(e) {
-        this.setState({popup: null})
-        // this.props.onClose(false)
-    }
+  onOtherSubmit(field, { id, name }) {
+    this.props.addOption(field, { id, name });
+  }
 
-    onShowPopup(popup) {
-        this.setState({popup})
-    }
+  onClose() {
+    this.setState({ popup: null });
+  }
 
-    render() {
-        const {onSubmit} = this.props
-        const {types, regions, distributors} = this.state
-        let form = {
-            title: "New Customer",
-            fields: [
-                {name: 'name', label: "Name"},
-                {name: 'location', label: "Location", type: 'location'},
-                {
-                    name: 'distributor',
-                    label: "Distributor",
-                    type: 'select',
-                    options: distributors,
-                    other: true,
-                    component: NewDistributorForm
-                },
-                {
-                    name: 'region',
-                    label: "Region",
-                    type: 'select',
-                    options: regions,
-                    other: true,
-                    component: NewRegionForm
-                },
-                {name: 'customer_type', label: "Type", type: 'select', options: types, value: "RET"},
-            ],
-            onSubmit: onSubmit?onSubmit:this.onSubmit.bind(this)
-        }
-        const onClose = this.props.onClose
-        const {popup} = this.state
-        return (
-            <>
-                <CloseableModel
-                    modalId="manageRecord-Customer"
-                    handleClose={onClose}
-                    show={true}
-                    content={<CommonForm meta={form} onClose={onClose}
-                                         onShowPopup={this.onShowPopup.bind(this)}/>}/>
-                {form.fields.filter(f => f.component).map(f => {
-                    return popup && popup === f.name &&
-                        <f.component onClose={this.onClose.bind(this)}
-                                     onOtherSubmit={(data) => this.onOtherSubmit(f.name, data)}
-                                     key={f.name}/>
-                })}
-            </>
-        );
-    }
+  onShowPopup(popup) {
+    this.setState({ popup });
+  }
+  onRegionChanged(region) {
+    this.setState({ districts: region.districts });
+  }
+
+  render() {
+    const { onSubmit } = this.props;
+    const { regions, suppliers, categories, districts } = this.state;
+    const data = this.props.data || {};
+    const notEmpty = (val) => val || false;
+    const errorMsg = "This field is required";
+    let form = {
+      title: null,
+      fields: [
+        {
+          name: "id",
+          value: data.id,
+          type: "hidden",
+        },
+        {
+          name: "name",
+          label: "Name",
+          value: data.name,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "location",
+          label: "Location",
+          type: "location",
+          value: data.location,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "region_id",
+          label: "Region",
+          type: "select",
+          options: regions,
+          linkedTo: ["district_id"],
+          value: data.region ? data.region.id : data.region_id,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "district_id",
+          label: "District",
+          type: "select",
+          options: districts,
+          linkChanged: this.onRegionChanged.bind(this),
+          value: data.district ? data.district.id : data.district_id,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "town",
+          label: "Business Town",
+          value: data.town,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "category_id",
+          label: "Category",
+          type: "select",
+          options: categories,
+          value: data.category ? data.category.id : data.category_id,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+        {
+          name: "share",
+          label: "Wallet Share",
+          type: "number",
+          value: data.share,
+          validator: {
+            valid: notEmpty,
+            error: errorMsg,
+          },
+        },
+      ],
+      onSubmit: onSubmit ? onSubmit : this.onSubmit.bind(this),
+      btnLabel: "Save data",
+    };
+    const onClose = this.props.onClose;
+    return (
+      <CommonForm
+        meta={form}
+        onClose={onClose}
+        onShowPopup={this.onShowPopup.bind(this)}
+      />
+    );
+  }
 }
 
 export default NewCustomerForm;

@@ -1,62 +1,67 @@
-import React from 'react';
-import {SimpleDialog} from "../../modal/SimpleDialog";
+import React from "react";
+import { SimpleDialog } from "../../modal/SimpleDialog";
 import CrudTable from "./CrudTable";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class BasicCrudView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false,
-            selectedIds: []
-        }
-        this.handleClose = this.handleClose.bind(this)
-        this.handleOk = this.handleOk.bind(this)
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      selectedIds: [],
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOk = this.handleOk.bind(this);
+  }
 
-    handleClose() {
-        this.setState({open: false})
-    }
+  handleClose() {
+    this.setState({ open: false });
+  }
 
-    handleOk() {
-        this.setState({open: false})
-        this.props.onDeleteAll({
-            ids: this.state.selectedIds,
-            cb: () => {
+  handleOk() {
+    this.setState({ open: false });
+    this.props.onDeleteAll({
+      ids: this.state.selectedIds,
+      cb: () => {},
+    });
+  }
 
-            }
-        })
-    }
+  render() {
+    const { headers, records, title, onSearch } = this.props.data;
+    const { isLoading, onRowClick, pagination } = this.props;
+    const { open } = this.state;
+    let options = this.props.options ? this.props.options : {};
 
-    render() {
-        const {headers, records, title, onSearch} = this.props.data
-        const {isLoading, onRowClick, pagination} = this.props
-        const {open} = this.state
-        let options = this.props.options ? this.props.options : {}
-
-        return (
-            <div>
-                <CrudTable
-                    title={title}
-                    columns={headers}
-                    data={records}
-                    pagination={pagination}
-                    isLoading={isLoading}
-                    options={{
-                        selection: true,
-                        ...options
-                    }}
-                    onRowClick={onRowClick}
-                    onSearch={onSearch}
-                />
-                <SimpleDialog open={open} handleClose={this.handleClose} handleOk={this.handleOk} title="Confirmation"
-                              description="Are you sure you want to delete selected records?"/>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <CrudTable
+          title={title}
+          columns={headers}
+          data={records}
+          pagination={pagination}
+          isLoading={isLoading}
+          options={{
+            selection: true,
+            ...options,
+          }}
+          onRowClick={onRowClick}
+          onSearch={onSearch}
+        />
+        {open && (
+          <SimpleDialog
+            open={open}
+            handleClose={this.handleClose}
+            handleOk={this.handleOk}
+            title="Confirmation"
+            description="Are you sure you want to delete selected records?"
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 BasicCrudView.propTypes = {
-    name: PropTypes.string
+  name: PropTypes.string,
 };
 export default BasicCrudView;
