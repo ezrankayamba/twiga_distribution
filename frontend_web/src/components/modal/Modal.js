@@ -37,6 +37,7 @@ class Modal extends Component {
             <div className="col p-0">
               <div className="btb-group float-right ml-2">
                 <button
+                  type="button"
                   className="btn btn-link p-0 text-warning"
                   onClick={handleClose}
                 >
@@ -45,7 +46,7 @@ class Modal extends Component {
               </div>
             </div>
           </div>
-          <div className="row m-0 p-2 my-modal-content">
+          <div className="row m-0 pl-2 pr-2 my-modal-content">
             <div className="col p-0">{content}</div>
           </div>
           {footer && (

@@ -33,6 +33,7 @@ export const apiPost = (url, body, token, type = "application/json") => {
   } else {
     body = JSON.stringify(body);
   }
+  console.log(type, headers);
   return fetch(url, {
     method: "POST",
     headers: headers,

@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import FormParser, MultiPartParser
 
 
 class RegionListView(generics.ListCreateAPIView):
@@ -40,6 +41,17 @@ class CategoryListView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
     required_scopes = []
     serializer_class = serializers.CategorySerializer
+    parser_classes = [FormParser, MultiPartParser]
+
+    def get_queryset(self):
+        return models.Category.objects.all()
+
+
+class CategoryManageView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = []
+    serializer_class = serializers.CategorySerializer
+    parser_classes = [FormParser, MultiPartParser]
 
     def get_queryset(self):
         return models.Category.objects.all()

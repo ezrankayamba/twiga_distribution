@@ -31,6 +31,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class RecordSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(many=False, read_only=True)
     brand = BrandSerializer(many=False, read_only=True)
+    supplier = CustomerSerializer(many=False, read_only=True)
 
     class Meta:
         model = models.Record

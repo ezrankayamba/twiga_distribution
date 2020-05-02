@@ -63,9 +63,17 @@ class CommonForm extends Component {
   }
 
   handleChange(event) {
-    event.preventDefault();
-    const { name, value } = event.target;
-    this.setChanged(name, value);
+    console.log(event);
+    let { name, value, checked, type } = event.target;
+    console.log(type, name, value, checked);
+    if (type === "checkbox") {
+      this.setChanged(name, checked);
+    } else if (type === "file") {
+      console.log("It is fine");
+      this.setFileChanged(event, name);
+    } else {
+      this.setChanged(name, value);
+    }
   }
 
   handleLinked(name, value) {
@@ -117,6 +125,13 @@ class CommonForm extends Component {
       }
     }
   }
+  setFileChanged(e, name) {
+    const file = e.target.files[0];
+    console.log(file);
+    this.props.clearNewOption(name);
+    const errors = this.validateOne(name, file);
+    this.setState({ errors, data: { ...this.state.data, [name]: file } });
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { newOptions } = this.props;
@@ -157,7 +172,8 @@ class CommonForm extends Component {
         <form
           onSubmit={this.handleSubmit}
           noValidate
-          className="p-2 pt-0 pb-0 form-content"
+          className="pl-2 pr-2 form-content"
+          encType={meta.encType}
         >
           {meta.fields.map((f) => {
             return (
@@ -188,7 +204,7 @@ class CommonForm extends Component {
               </div>
             );
           })}
-          <div className="submit pt-3 form-footer">
+          <div className="submit form-footer pb-2">
             <button className="btn btn-sm btn-primary">
               {meta.btnLabel || "Submit"}
             </button>

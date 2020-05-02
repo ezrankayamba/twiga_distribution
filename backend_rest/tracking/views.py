@@ -56,6 +56,24 @@ class SupplierListView(generics.ListAPIView):
         return models.Customer.objects.filter(category__is_supplier=True)
 
 
+class ListCustomersForMap(APIView):
+    def get(self, request):
+        return Response({
+            'result': 0,
+            'message': 'Successfully fetched customers for map',
+            'data': serializers.CustomerSerializer(models.Customer.objects.all(), many=True).data
+        })
+
+    def post(self, request):
+        filt = request.data
+        print(filt)
+        return Response({
+            'result': 0,
+            'message': 'Successfully fetched customers for map',
+            'data': serializers.CustomerSerializer(models.Customer.objects.filter(**filt), many=True).data
+        })
+
+
 class CustomerSurveyDataView(APIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
     required_scopes = []
@@ -90,6 +108,8 @@ class CustomerSurveyDataView(APIView):
         customer = models.Customer.objects.create(**info)
 
         for c in contacts:
+            if 'idx' in c:
+                del c['idx']
             c.update({'customer': customer})
             models.Contact.objects.create(**c)
 
@@ -97,6 +117,9 @@ class CustomerSurveyDataView(APIView):
         models.Description.objects.create(**desc)
 
         for c in supply:
+            print(c)
+            if 'idx' in c:
+                del c['idx']
             c.update({'customer': customer})
             models.Record.objects.create(**c)
 
@@ -121,6 +144,8 @@ class CustomerSurveyDataView(APIView):
         models.Record.objects.filter(customer=customer).update(trushed=True)
 
         for c in contacts:
+            if 'idx' in c:
+                del c['idx']
             c.update({'customer': customer})
             models.Contact.objects.create(**c)
 
@@ -128,6 +153,9 @@ class CustomerSurveyDataView(APIView):
         models.Description.objects.filter(customer=customer).update(**desc)
 
         for c in supply:
+            print(c)
+            if 'idx' in c:
+                del c['idx']
             c.update({'customer': customer})
             if 'id' in c:
                 del c['id']

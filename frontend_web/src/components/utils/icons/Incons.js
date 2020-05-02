@@ -2,6 +2,9 @@ import React from "react";
 
 export const IconPlus = () => <i className="icon ion-plus-circled tx-24"></i>;
 export const IconAdd = () => <i className="icon ion-plus-circled tx-24"></i>;
+export const IconAddNew = ({ className }) => (
+  <i className={`icon ion-plus-circled ${className}`}></i>
+);
 export const IconTrash = () => (
   <i className="icon ion-trash-b tx-16 pl-2 pr-2"></i>
 );
@@ -26,9 +29,14 @@ export const IconSignOut = () => <i className="icon ion-power"></i>;
 export const IconSignIn = () => <i className="icon ion-power"></i>;
 export const IconSettings = () => <i className="icon ion-android-settings"></i>;
 export const IconPerson = () => <i className="icon ion-ios-person"></i>;
+export const IconUsers = () => <i className="icon ion-ios-people"></i>;
+export const IconMapReport = () => <i className="icon ion-map"></i>;
 export const IconFile = () => <i className="icon ion-document-text tx-16"></i>;
 export const IconUpload = () => <i className="icon ion-arrow-up-a"></i>;
 export const IconManual = () => <i className="icon ion-grid"></i>;
+export const IconBtnOpen = () => <i className="icon ion-ios-arrow-left"></i>;
+export const IconBtnHide = () => <i className="icon ion-ios-arrow-right"></i>;
+export const IconFilter = () => <i className="icon ion-funnel"></i>;
 export const IconClose = () => <i className="ion ion-android-close tx-24"></i>;
 export const IconCaptureLocation = () => (
   <i className="icon ion-android-locate tx-16"></i>

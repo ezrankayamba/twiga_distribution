@@ -13,6 +13,7 @@
   margin-top: -50px;
   margin-left: -50px;
   padding: 0.2rem;
+  z-index: 1000;
 }
 body,
 html {
@@ -54,4 +55,12 @@ textarea {
   .login-outer-form-wrapper {
     align-items: center;
   }
+}
+
+input.form-control {
+  padding: 0.4rem !important;
+}
+select.form-control:not([size]):not([multiple]) {
+  height: 2rem;
+  padding: 0.3rem;
 }

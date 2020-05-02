@@ -9,8 +9,7 @@ import {
 import { connect } from "react-redux";
 import BasicCrudView from "../../utils/crud/BasicCrudView";
 import LoadingIndicator from "../../utils/loading/LoadingIndicator";
-import { IconPlus, IconTrash, IconMap } from "../../utils/icons/Incons";
-import NewCustomerForm from "./forms/NewCustomerForm";
+import { IconPlus, IconMap } from "../../utils/icons/Incons";
 import { DateTime } from "../../../_helpers/DateTime";
 import CRUD from "../../../_services/CRUD";
 import CustomerRecordForm from "./forms/CustomerRecordForm";
@@ -216,66 +215,60 @@ class List extends Component {
 
     const pagination = { pages, pageNo, onPageChange: this.onPageChange };
     return (
-      <div className="row">
-        <div className="col">
-          <div className="row pt-2 pb-2 d-flex">
-            <div className="col">
-              <h5>{data.title}</h5>
-            </div>
-            <div className="col-1">
-              <div className="btn-group float-right">
-                <button
-                  className="btn btn-link p-0"
-                  onClick={() => this.setState({ openAdd: true })}
-                >
-                  <IconPlus />
-                </button>
-              </div>
-            </div>
+      <div className="">
+        <div className="list-toolbar pt-2 pb-2 d-flex">
+          <h5>{data.title}</h5>
+          <div className="btn-group float-right">
+            <button
+              className="btn btn-link p-0"
+              onClick={() => this.setState({ openAdd: true })}
+            >
+              <IconPlus />
+            </button>
           </div>
-          <BasicCrudView
-            onRowClick={this.onRowClick.bind(this)}
-            pagination={pagination}
-            data={data}
-            onUpdate={this.doUpdate}
-            onDelete={this.onDelete}
-            onAdd={this.doAdd}
-            toolbar={true}
-          />
-          {this.state.openAdd && (
-            <Modal
-              modalId="newCustomerForm"
-              title="New Customer"
-              handleClose={() => this.setState({ openAdd: false })}
-              content={
-                <CustomerRecordForm
-                  newRecord={true}
-                  surveySubmitted={this.surveySubmitted}
-                  user={this.props.user}
-                />
-              }
-            />
-          )}
-          {openDetail && selected && (
-            <Modal
-              modalId="CustomerDetailsForm"
-              title={selected["Customer Information"].name}
-              handleClose={() =>
-                this.setState({ openDetail: false, selected: null })
-              }
-              content={
-                <CustomerRecordForm
-                  surveySubmitted={this.surveySubmitted}
-                  user={this.props.user}
-                  data={selected}
-                />
-              }
-            />
-          )}
-          {this.state.isLoading && (
-            <LoadingIndicator isLoading={this.state.isLoading} />
-          )}
         </div>
+        <BasicCrudView
+          onRowClick={this.onRowClick.bind(this)}
+          pagination={pagination}
+          data={data}
+          onUpdate={this.doUpdate}
+          onDelete={this.onDelete}
+          onAdd={this.doAdd}
+          toolbar={true}
+        />
+        {this.state.openAdd && (
+          <Modal
+            modalId="newCustomerForm"
+            title="New Customer"
+            handleClose={() => this.setState({ openAdd: false })}
+            content={
+              <CustomerRecordForm
+                newRecord={true}
+                surveySubmitted={this.surveySubmitted}
+                user={this.props.user}
+              />
+            }
+          />
+        )}
+        {openDetail && selected && (
+          <Modal
+            modalId="CustomerDetailsForm"
+            title={selected["Customer Information"].name}
+            handleClose={() =>
+              this.setState({ openDetail: false, selected: null })
+            }
+            content={
+              <CustomerRecordForm
+                surveySubmitted={this.surveySubmitted}
+                user={this.props.user}
+                data={selected}
+              />
+            }
+          />
+        )}
+        {this.state.isLoading && (
+          <LoadingIndicator isLoading={this.state.isLoading} />
+        )}
       </div>
     );
   }

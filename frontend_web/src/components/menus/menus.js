@@ -4,6 +4,7 @@ import LogoutPage from "../pages/auth/LogoutPage";
 import CustomersIndex from "../pages/customers/IndexPage";
 import RecordsIndex from "../pages/records/IndexPage";
 import SetupsIndex from "../pages/setups/IndexPage";
+import MapIndex from "../pages/map/IndexPage";
 import {
   IconClient,
   IconFile,
@@ -11,6 +12,9 @@ import {
   IconSignIn,
   IconSignOut,
   IconSettings,
+  IconUsers,
+  IconMap,
+  IconMapReport,
 } from "../utils/icons/Incons";
 import UsersPage from "../pages/auth/UsersPage";
 
@@ -38,7 +42,7 @@ const getMenus = (loggedIn, privileges) => {
           path: "/users",
           name: "Users",
           component: UsersPage,
-          Icon: IconHome,
+          Icon: IconUsers,
           privilege: "Users.manage",
         },
         {
@@ -51,19 +55,19 @@ const getMenus = (loggedIn, privileges) => {
         },
         {
           id: getId(),
-          path: "/records",
-          name: "Records",
-          component: RecordsIndex,
-          Icon: IconFile,
-          privilege: "Customers.manage",
-        },
-        {
-          id: getId(),
           path: "/setups",
           name: "Setups",
           component: SetupsIndex,
           Icon: IconSettings,
           privilege: "Setups.manage",
+        },
+        {
+          id: getId(),
+          path: "/map",
+          name: "Map",
+          component: MapIndex,
+          Icon: IconMapReport,
+          privilege: "Customers.manage",
         },
         {
           id: getId(),

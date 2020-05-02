@@ -1,0 +1,17 @@
+.map-container {
+  width: 600px;
+  max-width: 90vw;
+  height: 400px;
+  max-height: 90vw;
+  /* padding-bottom: rem; */
+  position: relative;
+}
+
+.map-container > button.btn {
+  position: absolute;
+  bottom: 0;
+  right: calc(50% - 5rem);
+  width: 10rem;
+  opacity: 1;
+  margin-bottom: 0.4rem;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { IconAdd } from "../../../utils/icons/Incons";
+import { IconAdd, IconTrash } from "../../../utils/icons/Incons";
 import CrudTable from "../../../utils/crud/CrudTable";
 import Modal from "../../../modal/Modal";
 import CommonForm from "../../../utils/form/CommonForm";
@@ -13,8 +13,12 @@ import CommonForm from "../../../utils/form/CommonForm";
 class ContactsForm extends Component {
   constructor(props) {
     super(props);
-    const { data } = this.props;
-    console.log(data);
+    let { data } = this.props;
+    if (data) {
+      data = data.map((r, idx) => {
+        return { ...r, idx };
+      });
+    }
     this.state = {
       records: data || [],
       newRecord: false,
@@ -22,17 +26,17 @@ class ContactsForm extends Component {
     this.onNewRecordSubmit = this.onNewRecordSubmit.bind(this);
   }
 
-  refresh() {}
-
-  componentDidMount() {
-    this.refresh();
+  onDelete(row) {
+    const { records } = this.state;
+    this.setState({ records: records.filter((r) => r.idx !== row.idx) });
   }
 
   onNewRecordSubmit(data) {
     this.setState({ newRecord: false });
     let records = this.state.records;
+    let max = Math.max(records.map((r) => r.idx));
     console.log(data);
-    records.push(data);
+    records.push({ ...data, idx: max + 1 });
     this.setState({ records });
   }
 
@@ -52,11 +56,25 @@ class ContactsForm extends Component {
       },
       { field: "position", title: "Position" },
       { field: "email", title: "Email" },
-      { field: "mobile", title: "Mobile phone(s)" },
+      { field: "mobile", title: "Mobile phone(s)", many: true },
+      {
+        field: "action",
+        title: "Action",
+        render: (row) => {
+          return (
+            <button
+              className="btn btn-sm btn-link text-danger p-0"
+              onClick={() => this.onDelete(row)}
+            >
+              <IconTrash />
+            </button>
+          );
+        },
+      },
     ];
     const form = {
       fields: columns
-        .filter((c) => c.field !== "id")
+        .filter((c) => c.field !== "id" && !c.render)
         .map((c) => {
           return {
             name: c.field,

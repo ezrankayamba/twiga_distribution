@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IconSettings } from "../../utils/icons/Incons";
+import { IconSettings, IconTrash } from "../../utils/icons/Incons";
 import "./Setup.css";
 import List from "./List";
 import Modal from "../../modal/Modal";
@@ -53,9 +53,30 @@ const Setups = ({ user }) => {
             name: "Categories",
             path: "/setups/categories",
             count: res.categories,
+            encType: "multipart/form-data",
             columns: [
               { field: "id", title: "ID" },
               { field: "name", title: "Name" },
+              {
+                field: "icon",
+                title: "Icon",
+                type: "file",
+                fileType: "image/png",
+                render: (row) => (
+                  <img
+                    className="setups-icon-image"
+                    src={row.icon}
+                    alt="No image"
+                  />
+                ),
+              },
+              {
+                field: "is_supplier",
+                title: "Supplier",
+                type: "checkbox",
+                value: false,
+                render: (row) => <span>{row.is_supplier ? "Yes" : "No"}</span>,
+              },
             ],
           },
         ];
@@ -63,44 +84,38 @@ const Setups = ({ user }) => {
       },
       onFail: (err) => console.error(err),
     });
-  });
+  }, []);
 
   const [setup, setSetup] = useState(null);
   const manageSetup = (selected) => {
     setSetup(selected);
   };
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <ul className="list-group">
-            <h6>Manage Setups</h6>
-            {setups.map((s) => (
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <button
-                  type="button"
-                  onClick={() => manageSetup(s)}
-                  className="btn btn-sm btn-link"
-                >
-                  <IconSettings /> <span className="ml-2">{s.name}</span>
-                </button>
-                <span className="badge badge-primary badge-pill">
-                  {s.count}
-                </span>
-              </li>
-            ))}
-          </ul>
-          {setup && (
-            <Modal
-              title={setup.name}
-              modalId="manageSetup"
-              handleClose={() => setSetup(null)}
-              content={<List setup={setup} />}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      <ul className="list-group">
+        <h6>Manage Setups</h6>
+        {setups.map((s) => (
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            <button
+              type="button"
+              onClick={() => manageSetup(s)}
+              className="btn btn-sm btn-link"
+            >
+              <IconSettings /> <span className="ml-2">{s.name}</span>
+            </button>
+            <span className="badge badge-primary badge-pill">{s.count}</span>
+          </li>
+        ))}
+      </ul>
+      {setup && (
+        <Modal
+          title={setup.name}
+          modalId="manageSetup"
+          handleClose={() => setSetup(null)}
+          content={<List setup={setup} />}
+        />
+      )}
+    </>
   );
 };
 

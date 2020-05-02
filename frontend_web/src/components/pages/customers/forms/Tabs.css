@@ -7,28 +7,28 @@ div.col:last-child > .no-rounds {
 }
 .my-modal-content {
   height: 100%;
-}
-.customer-record-form {
-  max-height: 100% !important;
-  height: 100%;
-}
-.tab-content {
-  max-height: 80% !important;
-  min-height: 80% !important;
-  overflow-y: auto;
-}
-.tab-content input.form-control {
-  padding: 0.4rem !important;
-}
-.tab-content select.form-control:not([size]):not([multiple]) {
-  height: 2rem;
-  padding: 0.3rem;
+  padding: 0;
 }
 #newCustomerForm > .modal-main,
 #CustomerDetailsForm > .modal-main {
-  height: 90%;
+  height: 100vh;
+}
+.customer-record-form {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-flow: column;
 }
 
+.tab-content {
+  overflow-y: auto;
+  flex: 10;
+}
+
+.tab-footer {
+  position: relative;
+  bottom: 44px;
+}
 .tab-buttons {
   display: flex;
   align-content: center;
@@ -63,6 +63,9 @@ div.col:last-child > .no-rounds {
 }
 .tab-buttons button:last-child::after {
   border-left: 0 solid #66f;
+}
+.tab-buttons button:last-child {
+  margin-right: 0;
 }
 .tab-buttons button::before {
   content: "";
