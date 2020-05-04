@@ -19,6 +19,16 @@ class RegionListView(generics.ListCreateAPIView):
         return models.Region.objects.all()
 
 
+class RegionManageView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = []
+    serializer_class = serializers.RegionSerializer
+    modal_class = models.Region
+
+    def get_queryset(self):
+        return models.Region.objects.all()
+
+
 class DistrictListView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
     required_scopes = []
@@ -28,7 +38,25 @@ class DistrictListView(generics.ListCreateAPIView):
         return models.District.objects.all()
 
 
+class DistrictManageView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = []
+    serializer_class = serializers.DistrictSerializer
+
+    def get_queryset(self):
+        return models.District.objects.all()
+
+
 class BrandListView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = []
+    serializer_class = serializers.BrandSerializer
+
+    def get_queryset(self):
+        return models.Brand.objects.all()
+
+
+class BrandManageView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
     required_scopes = []
     serializer_class = serializers.BrandSerializer

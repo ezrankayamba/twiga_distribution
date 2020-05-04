@@ -23,6 +23,7 @@ export const apiGetPaginated = (url, token, page = 1, params = {}) => {
     },
   });
 };
+
 export const apiPost = (url, body, token, type = "application/json") => {
   let headers = {
     Authorization: `Bearer ${token}`,
@@ -30,8 +31,13 @@ export const apiPost = (url, body, token, type = "application/json") => {
   };
   if (type === "multipart/form-data") {
     delete headers["Content-Type"];
+    body = formData(body);
   } else {
-    body = JSON.stringify(body);
+    if (body instanceof FormData) {
+      body = JSON.stringify(Object.fromEntries(body));
+    } else {
+      body = JSON.stringify(body);
+    }
   }
   console.log(type, headers);
   return fetch(url, {
@@ -53,7 +59,11 @@ export const apiUpdate = (url, body, token, type = "application/json") => {
   if (type === "multipart/form-data") {
     delete headers["Content-Type"];
   } else {
-    body = JSON.stringify(body);
+    if (body instanceof FormData) {
+      body = JSON.stringify(Object.fromEntries(body));
+    } else {
+      body = JSON.stringify(body);
+    }
   }
   return fetch(url, {
     method: "PUT",
