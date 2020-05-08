@@ -12,3 +12,4 @@ urlpatterns = [
     path('districts/<int:pk>', views.DistrictManageView.as_view()),
     path('counts', views.SetupCounts.as_view()),
 ]
+

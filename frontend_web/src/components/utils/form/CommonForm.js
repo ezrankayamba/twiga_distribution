@@ -172,40 +172,42 @@ class CommonForm extends Component {
         <form
           onSubmit={this.handleSubmit}
           noValidate
-          className="pl-2 pr-2 form-content"
+          className="pl-2 pr-2"
           encType={meta.encType}
         >
-          {meta.fields.map((f) => {
-            return (
-              <div key={f.name} className="mb-2">
-                <InputControl
-                  onShowPopup={this.props.onShowPopup}
-                  field={f}
-                  value={
-                    f.other && newOptions && newOptions[f.name]
-                      ? newOptions[f.name].id
-                      : data[f.name]
-                      ? data[f.name]
-                      : ""
-                  }
-                  name={f.name}
-                  id={f.name}
-                  className="form-control"
-                  onChange={this.handleChange}
-                  noValidate
-                  errors={errors}
-                  setChanged={this.setChanged}
-                />
-                {f.info && (
-                  <div className="info">
-                    <small>{f.info}</small>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          <div className="form-content">
+            {meta.fields.map((f) => {
+              return (
+                <div key={f.name} className="mb-2">
+                  <InputControl
+                    onShowPopup={this.props.onShowPopup}
+                    field={f}
+                    value={
+                      f.other && newOptions && newOptions[f.name]
+                        ? newOptions[f.name].id
+                        : data[f.name]
+                        ? data[f.name]
+                        : ""
+                    }
+                    name={f.name}
+                    id={f.name}
+                    className="form-control"
+                    onChange={this.handleChange}
+                    noValidate
+                    errors={errors}
+                    setChanged={this.setChanged}
+                  />
+                  {f.info && (
+                    <div className="info">
+                      <small>{f.info}</small>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
           <div className="submit form-footer pb-2">
-            <button className="btn btn-sm btn-primary">
+            <button className="btn btn-outline-primary">
               {meta.btnLabel || "Submit"}
             </button>
           </div>

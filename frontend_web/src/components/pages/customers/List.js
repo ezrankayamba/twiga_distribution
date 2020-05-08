@@ -215,7 +215,7 @@ class List extends Component {
 
     const pagination = { pages, pageNo, onPageChange: this.onPageChange };
     return (
-      <div className="">
+      <>
         <div className="list-toolbar pt-2 pb-2 d-flex">
           <h5>{data.title}</h5>
           <div className="btn-group float-right">
@@ -269,7 +269,7 @@ class List extends Component {
         {this.state.isLoading && (
           <LoadingIndicator isLoading={this.state.isLoading} />
         )}
-      </div>
+      </>
     );
   }
 }

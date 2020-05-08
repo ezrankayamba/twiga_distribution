@@ -124,14 +124,14 @@ class InputControl extends Component {
                 <div>
                   <button
                     type="button"
-                    className="btn btn-link p-0 pl-2 pr-2"
+                    className="btn btn-sm btn-link p-0 pl-2 pr-2"
                     onClick={this.captLoc.bind(this)}
                   >
                     <IconCaptureLocation />
                   </button>
                   <button
                     type="button"
-                    className="btn btn-link p-0 pl-2 pr-2"
+                    className="btn btn-sm btn-link p-0 pl-2 pr-2"
                     onClick={this.selectFrmMap.bind(this)}
                   >
                     <IconMap />
@@ -153,7 +153,7 @@ class InputControl extends Component {
           )}
           <ComputedInput field={field} {...rest} newOptions={newOptions} />
           {errors && errors[field.name].length > 0 && (
-            <small className="text-danger small">{errors[field.name]}</small>
+            <small className="text-error small">{errors[field.name]}</small>
           )}
         </div>
 

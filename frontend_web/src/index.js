@@ -37,11 +37,7 @@ class Index extends Component {
     return (
       <Router>
         {loggedIn && <MainLayout loggedIn={loggedIn} user={user} />}
-        {!loggedIn && (
-          <div className="login-outer-form-wrapper">
-            <LoginPage />
-          </div>
-        )}
+        {!loggedIn && <LoginPage />}
       </Router>
     );
   }

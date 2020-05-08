@@ -1,0 +1,65 @@
+:root {
+  --button-color: #2196f3;
+}
+
+.buttons-container {
+  display: flex;
+}
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* Button style */
+.btn {
+  border: none;
+  border-radius: 2px;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: var(--button-color);
+  box-shadow: 0 0 2px #999;
+  outline: none;
+}
+.btn.btn-sm {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 1px solid var(--button-color);
+  color: var(--button-color);
+  box-shadow: none;
+}
+.btn.btn-outline-secondary {
+  background: transparent;
+  border: 1px solid #e1e1e1;
+}
+.btn.btn-outline-primary {
+  background: transparent;
+  border: 1px solid var(--button-color);
+  color: var(--button-color);
+}
+.btn.btn-outline-primary:hover {
+  background: var(--button-color);
+  color: #e1e1e1;
+}
+.btn.btn-link {
+  background: transparent;
+  color: var(--button-color);
+  box-shadow: none;
+  font-size: 1.2em;
+}

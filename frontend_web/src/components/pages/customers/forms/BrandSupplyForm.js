@@ -178,7 +178,7 @@ class BrandSupplyForm extends Component {
         {records.length > 0 && (
           <button
             type="button"
-            className="btn btn-sm btn-primary mt-2"
+            className="btn btn-outline-primary mt-1 float-right"
             onClick={() => this.props.onTabSubmit(records)}
           >
             Save Data

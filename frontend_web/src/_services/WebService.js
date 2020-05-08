@@ -31,7 +31,7 @@ export const apiPost = (url, body, token, type = "application/json") => {
   };
   if (type === "multipart/form-data") {
     delete headers["Content-Type"];
-    body = formData(body);
+    // body = formData(body);
   } else {
     if (body instanceof FormData) {
       body = JSON.stringify(Object.fromEntries(body));

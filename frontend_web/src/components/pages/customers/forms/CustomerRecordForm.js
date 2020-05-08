@@ -70,7 +70,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
     }
   };
   return (
-    <div className="customer-record-form small pt-0">
+    <div className="customer-record-form">
       <div className="tab-buttons">
         {tabs.map((t, pos) => (
           <button
@@ -83,16 +83,16 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
           </button>
         ))}
       </div>
-      <div className="pt-1 tab-content">
+      <div className="tab-content">
         {tabs.map(
           (T, pos) => tab === pos && <T.render name={T.name} pos={pos} />
         )}
       </div>
-      <div className="pt-1 tab-footer">
+      <div className="tab-footer">
         <button
           disabled={stage !== tabs.length}
           type="button"
-          className="w-100 btn btn-sm btn-outline-primary"
+          className="w-100 btn"
           onClick={submitSurvey}
         >
           {newRecord ? "Submit customer survey" : "Update customer survey"}
