@@ -46,6 +46,7 @@
 }
 .login-content .form-wrap {
   width: 400px;
+  max-width: 100%;
 }
 .login-content svg {
   position: absolute;

@@ -14,6 +14,7 @@
 
 :root {
   --brand-color: #ffd400;
+  --mobile-breakpoint: 768px;
 }
 
 * {

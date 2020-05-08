@@ -13,6 +13,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
   const tabs = [
     {
       name: "Customer Information",
+      label: "Information",
       render: (tab) => (
         <NewCustomerForm
           data={formData[tab.name]}
@@ -22,6 +23,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
     },
     {
       name: "Customer Contacts",
+      label: "Contacts",
       render: (tab) => (
         <ContactsForm
           data={formData[tab.name]}
@@ -31,6 +33,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
     },
     {
       name: "Customer Description",
+      label: "Description",
       render: (tab) => (
         <DescriptionForm
           data={formData[tab.name]}
@@ -40,6 +43,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
     },
     {
       name: "Brand(s) Supplied",
+      label: "Brands",
       render: (tab) => (
         <BrandSupplyForm
           data={formData[tab.name]}
@@ -79,7 +83,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
             onClick={() => setTab(pos)}
             className={tab === pos && "btn-active"}
           >
-            {t.name}
+            {t.label}
           </button>
         ))}
       </div>

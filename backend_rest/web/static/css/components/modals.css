@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
-  padding: 4rem;
+  /* padding: 4rem; */
   z-index: 100;
 }
 
@@ -15,7 +15,7 @@
   min-height: 4rem;
   min-width: 36%;
   bottom: 4px;
-  right: 1.2rem;
+  right: 0;
   text-align: left;
 }
 .modal-header {
@@ -31,9 +31,9 @@
   height: calc(100% - 40px);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 768px) {
   .modal-main {
-    min-width: 80%;
+    right: 1.2rem;
   }
 }
 
