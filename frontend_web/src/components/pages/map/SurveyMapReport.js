@@ -40,7 +40,7 @@ const SurveyMapReport = ({ user }) => {
   return (
     <div className="map-report">
       <h6>Map Report</h6>
-      <div className="map-container">
+      <div className="report-map-container">
         <div className="map-content">
           <MapReport surveys={surveys} />
           <button

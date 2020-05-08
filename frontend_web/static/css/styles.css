@@ -11,6 +11,7 @@
 @import "./components/list.css";
 @import "./components/tabs.css";
 @import "./components/utils.css";
+@import "./components/maps.css";
 
 :root {
   --brand-color: #ffd400;

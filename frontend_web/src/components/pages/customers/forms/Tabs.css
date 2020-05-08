@@ -1,7 +1,8 @@
 #newCustomerForm > .modal-main,
 #CustomerDetailsForm > .modal-main {
-  height: calc(100% - 100px);
+  height: 95%;
 }
+
 .customer-record-form {
   height: 100%;
   display: grid;
@@ -11,4 +12,11 @@
   padding-top: 0.4rem;
   max-height: 100%;
   overflow-y: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  #newCustomerForm > .modal-main,
+  #CustomerDetailsForm > .modal-main {
+    height: calc(100% - 100px);
+  }
 }
