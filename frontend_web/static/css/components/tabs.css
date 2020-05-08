@@ -16,7 +16,6 @@ div.col:last-child > .no-rounds {
 }
 .tab-buttons {
   display: flex;
-  align-content: center;
 }
 
 .tab-buttons button {
@@ -27,6 +26,7 @@ div.col:last-child > .no-rounds {
   margin-right: 0.6rem;
   position: relative;
   outline: 0;
+  flex: 1;
 }
 .tab-buttons button.btn-active {
   background: #66f;
