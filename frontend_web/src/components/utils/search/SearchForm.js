@@ -1,6 +1,7 @@
 import InputControl from "../inputs/InputControl";
 import { IconSearch } from "../icons/Incons";
 import React, { useState } from "react";
+import MatIcon from "../icons/MatIcon";
 
 export const SearchForm = ({ searchFields, onSearch }) => {
   let errors0 = {};
@@ -41,7 +42,7 @@ export const SearchForm = ({ searchFields, onSearch }) => {
         </div>
         <div className="form-footer">
           <button className="btn btn-sm">
-            <i className="material-icons">search</i> Search
+            <MatIcon name="search" /> Search
           </button>
         </div>
       </form>

@@ -20,10 +20,10 @@ class Brand(models.Model):
 
 class Region(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    small = models.DecimalField(decimal_places=2, max_digits=20)
-    medium = models.DecimalField(decimal_places=2, max_digits=20)
-    large = models.DecimalField(decimal_places=2, max_digits=20)
-    xlarge = models.DecimalField(decimal_places=2, max_digits=20)
+    small = models.DecimalField(decimal_places=2, max_digits=20, default=0)
+    medium = models.DecimalField(decimal_places=2, max_digits=20,  default=0)
+    large = models.DecimalField(decimal_places=2, max_digits=20,  default=0)
+    xlarge = models.DecimalField(decimal_places=2, max_digits=20,  default=0)
     created_at = models.DateTimeField(
         auto_now=False, auto_now_add=True, null=True)
     updated_at = models.DateTimeField(

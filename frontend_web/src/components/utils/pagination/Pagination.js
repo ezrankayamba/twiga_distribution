@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { IconFirst, IconLast, IconNext, IconPrev } from "../icons/Incons";
+import MatIcon from "../icons/MatIcon";
 
 class Pagination extends Component {
   render() {
@@ -19,13 +19,13 @@ class Pagination extends Component {
                 className="pg-btn btn-sm btn-outline-secondary"
                 onClick={() => onPageChange(1)}
               >
-                <IconFirst />
+                <MatIcon name="first_page" />
               </button>
               <button
                 className="pg-btn btn-sm btn-outline-secondary"
                 onClick={() => onPageChange(pageNo - 1)}
               >
-                <IconPrev />
+                <MatIcon name="chevron_left" />
               </button>
             </>
           )}
@@ -46,13 +46,13 @@ class Pagination extends Component {
                 className="pg-btn btn-sm btn-outline-secondary"
                 onClick={() => onPageChange(pageNo + 1)}
               >
-                <IconNext />
+                <MatIcon name="chevron_right" />
               </button>
               <button
                 className="pg-btn btn-sm btn-outline-secondary"
                 onClick={() => onPageChange(pages)}
               >
-                <IconLast />
+                <MatIcon name="last_page" />
               </button>
             </>
           )}

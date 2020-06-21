@@ -1,6 +1,7 @@
 import "./Modal.css";
 import React, { Component } from "react";
 import { IconClose } from "../utils/icons/Incons";
+import MatIcon from "../utils/icons/MatIcon";
 
 class Modal extends Component {
   otherClick(e) {
@@ -33,10 +34,10 @@ class Modal extends Component {
             <div className="btn-group">
               <button
                 type="button"
-                className="btn btn-link text-warning"
+                className="btn btn-link text-warning btn-sm"
                 onClick={handleClose}
               >
-                <IconClose />
+                <MatIcon name="close" />
               </button>
             </div>
           </div>

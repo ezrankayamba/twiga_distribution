@@ -12,6 +12,7 @@ import {
 } from "../../../_services/AuthService";
 import { IconPlus, IconTrash } from "../../utils/icons/Incons";
 import Modal from "../../modal/Modal";
+import MatIcon from "../../utils/icons/MatIcon";
 
 @connect((state) => {
   return {
@@ -119,7 +120,7 @@ class UsersPage extends Component {
               className="btn btn-sm btn-link text-danger"
               onClick={(e) => this.onDelete(e, rowData)}
             >
-              <IconTrash />
+              <MatIcon name="delete" />
             </button>
           ),
         },

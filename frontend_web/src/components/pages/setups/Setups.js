@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { IconSettings, IconTrash } from "../../utils/icons/Incons";
 import "./Setup.css";
 import List from "./List";
 import Modal from "../../modal/Modal";
 import CRUD from "../../../_services/CRUD";
+import MatIcon from "../../utils/icons/MatIcon";
 
 const Setups = ({ user }) => {
   const [setups, setSetups] = useState([]);
@@ -101,7 +101,7 @@ const Setups = ({ user }) => {
               onClick={() => manageSetup(s)}
               className="btn btn-sm btn-link"
             >
-              <IconSettings /> <span className="ml-2">{s.name}</span>
+              <MatIcon name="settings" /> <span className="ml-2">{s.name}</span>
             </button>
             <span className="badge badge-primary badge-pill">{s.count}</span>
           </li>

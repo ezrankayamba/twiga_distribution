@@ -1,9 +1,10 @@
 import React from "react";
 
 const getInput = (
-  { type, options, name, many, all, label },
+  { type, options, name, many, all, label, accept },
   { value, prepend, newOptions, dispatch, ...rest }
 ) => {
+  //   console.log(rest);
   if (type === "select") {
     return (
       <select {...rest} value={value}>
@@ -35,7 +36,7 @@ const getInput = (
             </a>
           </span>
         )}
-        <input type={type} {...rest} />
+        <input type={type} {...rest} accept={accept} />
       </div>
     );
   } else {

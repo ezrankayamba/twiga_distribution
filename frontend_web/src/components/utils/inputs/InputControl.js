@@ -101,6 +101,7 @@ class InputControl extends Component {
       newOptions,
       ...rest
     } = this.props;
+    // console.log(field, rest);
     const { openMap, addMany, position } = this.state;
     return (
       <>

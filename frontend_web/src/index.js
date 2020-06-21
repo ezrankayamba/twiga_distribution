@@ -5,7 +5,7 @@ import { connect, Provider } from "react-redux";
 import store from "./redux/store";
 import "./_styles/App.css";
 
-import { logout } from "./redux/auth/actions";
+import { logout, login } from "./redux/auth/actions";
 import { notifyMe } from "./_helpers/notification";
 import { SESSION_TIMEOUT_LOGOUT_AT, SESSION_TIMEOUT_WARNING_AT } from "./conf";
 import MainLayout from "./components/pages/layout/MainLayout";
@@ -37,7 +37,11 @@ class Index extends Component {
     return (
       <Router>
         {loggedIn && <MainLayout loggedIn={loggedIn} user={user} />}
-        {!loggedIn && <LoginPage />}
+        {!loggedIn && (
+          <div className="login-page">
+            <LoginPage />
+          </div>
+        )}
       </Router>
     );
   }

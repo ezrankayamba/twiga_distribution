@@ -14,6 +14,8 @@ import { DateTime } from "../../../_helpers/DateTime";
 import CRUD from "../../../_services/CRUD";
 import CustomerRecordForm from "./forms/CustomerRecordForm";
 import Modal from "../../modal/Modal";
+import MatIcon from "../../utils/icons/MatIcon";
+import BulkCustomersUploadForm from "./forms/BulkCustomersUploadForm";
 
 @connect((state) => {
   return {
@@ -64,7 +66,7 @@ class List extends Component {
                 district: c.district.name,
                 category: c.category.name,
                 created_at: DateTime.fmt(c.created_at),
-                location: `(${c.lat}, ${c.lng})`,
+                location: c.lat ? `(${c.lat}, ${c.lng})` : null,
               };
             }),
             isLoading: false,
@@ -146,6 +148,7 @@ class List extends Component {
       categories,
       openDetail,
       selected,
+      bulkUpload,
     } = this.state;
     let data = {
       records: customers,
@@ -220,10 +223,16 @@ class List extends Component {
           <h5>{data.title}</h5>
           <div className="btn-group float-right">
             <button
-              className="btn btn-link p-0"
+              className="btn  btn-sm"
               onClick={() => this.setState({ openAdd: true })}
             >
-              <IconPlus />
+              <MatIcon name="add_circle_outline" /> Add
+            </button>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => this.setState({ bulkUpload: true })}
+            >
+              <MatIcon name="arrow_circle_up" /> Bulk Upload
             </button>
           </div>
         </div>
@@ -236,6 +245,13 @@ class List extends Component {
           onAdd={this.doAdd}
           toolbar={true}
         />
+        {bulkUpload && (
+          <BulkCustomersUploadForm
+            complete={() =>
+              this.setState({ bulkUpload: false }, () => this.refresh())
+            }
+          />
+        )}
         {this.state.openAdd && (
           <Modal
             modalId="newCustomerForm"

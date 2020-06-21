@@ -8,16 +8,9 @@ from django.contrib.auth.models import User
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import api_view, renderer_classes
 import re
-
-
-def parse_loc(loc):
-    regex = '^\\(([-\\d\\.]+), ([-\\d\\.]+)\\)$'
-    res = re.search(regex, loc)
-    return {'lat': res.group(1), 'lng': res.group(2)}
-
-
-def serializer_loc(lat, lng):
-    return f'({lat}, {lng})'
+from . import utils
+from . import imports
+import io
 
 
 class CustomerListView(generics.ListCreateAPIView):
@@ -82,7 +75,7 @@ class CustomerSurveyDataView(APIView):
         print('Customer: ', customer_id)
         cust = models.Customer.objects.get(pk=customer_id)
         info = serializers.CustomerSerializer(cust).data
-        info['location'] = serializer_loc(info['lat'], info['lng'])
+        info['location'] = utils.serializer_loc(info['lat'], info['lng'])
         contacts = serializers.ContactSerializer(models.Contact.objects.filter(customer=cust), many=True).data
         desc = serializers.DescriptionSerializer(models.Description.objects.filter(customer=cust).first()).data
         supply = serializers.RecordSerializer(models.Record.objects.filter(
@@ -97,31 +90,7 @@ class CustomerSurveyDataView(APIView):
 
     def post(self, request):
         data = request.data
-        info = data['Customer Information']
-        contacts = data['Customer Contacts']
-        desc = data['Customer Description']
-        supply = data['Brand(s) Supplied']
-
-        loc = parse_loc(info['location'])
-        del info['location']
-        info.update(loc)
-        customer = models.Customer.objects.create(**info)
-
-        for c in contacts:
-            if 'idx' in c:
-                del c['idx']
-            c.update({'customer': customer})
-            models.Contact.objects.create(**c)
-
-        desc.update({'customer': customer})
-        models.Description.objects.create(**desc)
-
-        for c in supply:
-            print(c)
-            if 'idx' in c:
-                del c['idx']
-            c.update({'customer': customer})
-            models.Record.objects.create(**c)
+        utils.save_new_survey(data)
 
         return Response({
             'result': 0,
@@ -130,37 +99,7 @@ class CustomerSurveyDataView(APIView):
 
     def put(self, request, customer_id):
         data = request.data
-        info = data['Customer Information']
-        contacts = data['Customer Contacts']
-        desc = data['Customer Description']
-        supply = data['Brand(s) Supplied']
-
-        loc = parse_loc(info['location'])
-        del info['location']
-        info.update(loc)
-        customer = models.Customer.objects.get(pk=customer_id)
-        models.Customer.objects.filter(id=customer_id).update(**info)
-        models.Contact.objects.filter(customer=customer).delete()
-        models.Record.objects.filter(customer=customer).update(trushed=True)
-
-        for c in contacts:
-            if 'idx' in c:
-                del c['idx']
-            c.update({'customer': customer})
-            models.Contact.objects.create(**c)
-
-        desc.update({'customer': customer})
-        models.Description.objects.filter(customer=customer).update(**desc)
-
-        for c in supply:
-            print(c)
-            if 'idx' in c:
-                del c['idx']
-            c.update({'customer': customer})
-            if 'id' in c:
-                del c['id']
-            models.Record.objects.create(**c)
-
+        utils.update_survey(data, customer_id)
         return Response({
             'result': 0,
             'message': 'Successfully submited survey data'
@@ -205,3 +144,13 @@ class RecordDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return models.Record.objects.all()
+
+
+class BulkCustomerUpload(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        file = request.FILES['file']
+        excel_file = io.BytesIO(file.read())
+        imports.import_customers(excel_file)
+        return Response({'result': 0, 'message': 'Successfully uploaded in bulk'})

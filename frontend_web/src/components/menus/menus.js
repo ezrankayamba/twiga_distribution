@@ -17,6 +17,7 @@ import {
   IconMapReport,
 } from "../utils/icons/Incons";
 import UsersPage from "../pages/auth/UsersPage";
+import React from "react";
 
 const getMenus = (loggedIn, privileges) => {
   let pFilter = (m) => {

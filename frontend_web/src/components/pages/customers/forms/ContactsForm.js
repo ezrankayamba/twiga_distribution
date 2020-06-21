@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { IconAdd, IconTrash } from "../../../utils/icons/Incons";
 import CrudTable from "../../../utils/crud/CrudTable";
 import Modal from "../../../modal/Modal";
 import CommonForm from "../../../utils/form/CommonForm";
+import MatIcon from "../../../utils/icons/MatIcon";
 
 @connect((state) => {
   return {
@@ -66,7 +66,7 @@ class ContactsForm extends Component {
               className="btn btn-sm btn-link text-danger p-0"
               onClick={() => this.onDelete(row)}
             >
-              <IconTrash />
+              <MatIcon name="delete" />
             </button>
           );
         },
@@ -94,7 +94,7 @@ class ContactsForm extends Component {
               className="btn btn-sm btn-link float-right pt-0 pb-0"
               onClick={() => this.setState({ newRecord: true })}
             >
-              <IconAdd />
+              <MatIcon name="add" />
             </button>
           </div>
         </div>

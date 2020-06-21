@@ -1,15 +1,15 @@
 .map-report h6 {
-  background: rgb(23, 102, 148);
+  background: rgb(204, 220, 230);
   padding: 0.4rem;
-  color: #e1e1e1;
+  color: #131212;
 }
 
 .map-report {
-  height: calc(100% - 200px);
+  height: 100%;
   position: relative;
 }
 .report-map-container {
-  height: 100%;
+  height: calc(100% - 0);
   display: grid;
   grid-auto-rows: auto auto;
   gap: 10px;
@@ -32,9 +32,13 @@
   position: absolute;
   right: 0.4rem;
   top: 1px;
-  background: rgb(80, 66, 4);
+  padding: 0;
+  margin-top: 1px;
+  /* background: rgb(252, 252, 251); */
 }
-
+.btn.open-hide .mat-icon {
+  font-size: 1.5em;
+}
 .map-filter.hide {
   display: none;
 }
@@ -55,6 +59,10 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .map-report {
+    height: calc(100% - 200px);
+    position: relative;
+  }
   .report-map-container {
     display: grid;
     grid-template-columns: 1fr auto;

@@ -14,7 +14,7 @@
 }
 .list-group-item :first-child {
   font-size: 14px;
-  flex: 1;
+  /* flex: 1; */
   text-align: left;
 }
 .list-group-item > span {

@@ -4,17 +4,17 @@ from setups import models as s_models
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     lat = models.DecimalField(decimal_places=8, max_digits=20, null=True)
     lng = models.DecimalField(decimal_places=8, max_digits=20, null=True)
     supplier = models.ForeignKey('Customer', on_delete=models.CASCADE, related_name="customers", null=True)
-    category = models.ForeignKey(s_models.Category, on_delete=models.CASCADE, related_name="customers", null=True)
-    region = models.ForeignKey(s_models.Region, on_delete=models.CASCADE, related_name="customers", null=True)
-    district = models.ForeignKey(s_models.District, on_delete=models.CASCADE, related_name="customers", null=True)
-    town = models.CharField(max_length=100, null=True)
+    category = models.ForeignKey(s_models.Category, on_delete=models.CASCADE, related_name="customers")
+    region = models.ForeignKey(s_models.Region, on_delete=models.CASCADE, related_name="customers")
+    district = models.ForeignKey(s_models.District, on_delete=models.CASCADE, related_name="customers")
+    town = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
-    share = models.DecimalField(max_digits=4, decimal_places=2)
+    share = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
@@ -25,12 +25,12 @@ class Customer(models.Model):
 
 class Description(models.Model):
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
-    fleet_size = models.DecimalField(max_digits=10, decimal_places=2)
-    trucks = models.DecimalField(max_digits=10, decimal_places=2)
-    system = models.CharField(max_length=100)
-    outlets = models.DecimalField(max_digits=10, decimal_places=2)
-    machines = models.DecimalField(max_digits=10, decimal_places=2)
-    types = models.CharField(max_length=100)
+    fleet_size = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    trucks = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    system = models.CharField(max_length=100, null=True)
+    outlets = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    machines = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    types = models.CharField(max_length=100, null=True)
     business = models.CharField(max_length=100)
 
 
@@ -38,7 +38,9 @@ class Contact(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100, null=True)
     mobile = models.CharField(max_length=100, null=True)
+    mobile_alt = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100, null=True)
+    email_alt = models.CharField(max_length=100, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="contacts")
 
 

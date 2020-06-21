@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { IconAdd, IconTrash } from "../../utils/icons/Incons";
 import CrudTable from "../../utils/crud/CrudTable";
 import Modal from "../../modal/Modal";
 import CommonForm from "../../utils/form/CommonForm";
 import CRUD from "../../../_services/CRUD";
+import MatIcon from "../../utils/icons/MatIcon";
 
 @connect((state) => {
   return {
@@ -194,7 +194,7 @@ class List extends Component {
             this.onDelete(row);
           }}
         >
-          <IconTrash />
+          <MatIcon name="delete" />
         </button>
       ),
     };
@@ -210,7 +210,7 @@ class List extends Component {
               className="btn btn-sm btn-link float-right pt-0 pb-0"
               onClick={() => this.setState({ newRecord: true })}
             >
-              <IconAdd />
+              <MatIcon name="add" />
             </button>
           </div>
         </div>

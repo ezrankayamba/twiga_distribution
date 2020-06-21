@@ -4,6 +4,7 @@ import { IconBtnHide, IconBtnOpen, IconFilter } from "../../utils/icons/Incons";
 import FilterForm from "./forms/FilterForm";
 import CRUD from "../../../_services/CRUD";
 import ObjectUtils from "../../../_helpers/ObjectUtils";
+import MatIcon from "../../utils/icons/MatIcon";
 const SurveyMapReport = ({ user }) => {
   const [open, setOpen] = useState(true);
   const [surveys, setSurveys] = useState([]);
@@ -44,11 +45,16 @@ const SurveyMapReport = ({ user }) => {
         <div className="map-content">
           <MapReport surveys={surveys} />
           <button
-            className="open-hide btn btn-sm btn-outline-secondary pt-1 pb-1 mr-1"
+            className="open-hide btn p-1"
             type="button"
             onClick={() => setOpen(!open)}
           >
-            <IconFilter /> {open ? <IconBtnHide /> : <IconBtnOpen />}
+            <MatIcon name="filter_list" />
+            {open ? (
+              <MatIcon name="chevron_right" />
+            ) : (
+              <MatIcon name="chevron_left" />
+            )}
           </button>
         </div>
         <div className={`map-filter${open ? "" : " hide"}`}>

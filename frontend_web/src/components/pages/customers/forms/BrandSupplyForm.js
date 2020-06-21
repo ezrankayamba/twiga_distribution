@@ -4,7 +4,7 @@ import CrudTable from "../../../utils/crud/CrudTable";
 import Modal from "../../../modal/Modal";
 import CommonForm from "../../../utils/form/CommonForm";
 import CRUD from "../../../../_services/CRUD";
-import { IconAdd, IconTrash } from "../../../utils/icons/Incons";
+import MatIcon from "../../../utils/icons/MatIcon";
 
 @connect((state) => {
   return {
@@ -121,7 +121,7 @@ class BrandSupplyForm extends Component {
                 this.onDelete(row);
               }}
             >
-              <IconTrash />
+              <MatIcon name="delete" />
             </button>
           );
         },
@@ -164,7 +164,7 @@ class BrandSupplyForm extends Component {
               className="btn btn-sm btn-link float-right pt-0 pb-0"
               onClick={() => this.setState({ newRecord: true })}
             >
-              <IconAdd />
+              <MatIcon name="add" />
             </button>
           </div>
         </div>
