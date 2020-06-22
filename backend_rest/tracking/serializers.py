@@ -18,21 +18,22 @@ class DescriptionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class RecordSerializer(serializers.ModelSerializer):
+    # customer = CustomerSerializer(many=False, read_only=True)
+    brand = BrandSerializer(many=False, read_only=True)
+    # supplier = CustomerSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = models.Record
+        fields = '__all__'
+
+
 class CustomerSerializer(serializers.ModelSerializer):
     category = CategorySerializer
     region = RegionSerializer(many=False, read_only=True)
+    records = RecordSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Customer
         fields = '__all__'
         depth = 3
-
-
-class RecordSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer(many=False, read_only=True)
-    brand = BrandSerializer(many=False, read_only=True)
-    supplier = CustomerSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = models.Record
-        fields = '__all__'

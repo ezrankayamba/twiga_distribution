@@ -16,6 +16,7 @@ import CustomerRecordForm from "./forms/CustomerRecordForm";
 import Modal from "../../modal/Modal";
 import MatIcon from "../../utils/icons/MatIcon";
 import BulkCustomersUploadForm from "./forms/BulkCustomersUploadForm";
+import Numbers from "../../../_helpers/Numbers";
 
 @connect((state) => {
   return {
@@ -53,7 +54,19 @@ class List extends Component {
   onSearch(data) {
     this.refresh(1, data);
   }
-
+  getShare(c) {
+    if (c.records.length === 0) {
+      return 0;
+    }
+    let onUs = c.records
+      .filter((r) => (r.brand ? r.brand.on_us : false))
+      .reduce((prev, curr) => prev + parseFloat(curr.volume), 0);
+    let all = c.records.reduce(
+      (prev, curr) => prev + parseFloat(curr.volume),
+      0
+    );
+    return ((100 * onUs) / all).toFixed(0);
+  }
   refresh(page = 1, filter = null) {
     this.setState({ isLoading: true }, () =>
       fetchCustomers(this.props.user.token, page, filter, (res) => {
@@ -67,6 +80,7 @@ class List extends Component {
                 category: c.category.name,
                 created_at: DateTime.fmt(c.created_at),
                 location: c.lat ? `(${c.lat}, ${c.lng})` : null,
+                share: `${this.getShare(c)}`,
               };
             }),
             isLoading: false,
@@ -199,7 +213,7 @@ class List extends Component {
         },
         {
           field: "share",
-          title: "Share of wallet",
+          title: "Share(%)",
         },
         {
           field: "category",
