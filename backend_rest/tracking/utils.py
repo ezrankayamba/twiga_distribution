@@ -39,11 +39,12 @@ def save_new_survey(data):
         if 'idx' in c:
             del c['idx']
         c.update({'customer': customer})
-        models.Contact.objects.create(**c)
+        if c['name']:
+            obj, created = models.Contact.objects.get_or_create(**c)
 
         desc.update({'customer': customer})
         try:
-            models.Description.objects.create(**desc)
+            obj, created = models.Description.objects.get_or_create(**desc)
         except Exception as e:
             print(e)
             print(desc)
@@ -56,7 +57,7 @@ def save_new_survey(data):
             del c['idx']
         c.update({'customer': customer})
         try:
-            models.Record.objects.create(**c)
+            obj, created = models.Record.objects.get_or_create(**c)
         except Exception as e:
             print(e)
             print(c)

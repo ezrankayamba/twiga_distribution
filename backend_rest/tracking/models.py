@@ -43,6 +43,9 @@ class Contact(models.Model):
     email_alt = models.CharField(max_length=100, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="contacts")
 
+    class Meta:
+        unique_together = ['name', 'customer']
+
 
 class Record(models.Model):
     volume = models.DecimalField(decimal_places=2, max_digits=20)
@@ -59,3 +62,4 @@ class Record(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        unique_together = ['brand', 'customer']

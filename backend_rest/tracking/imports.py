@@ -128,6 +128,7 @@ def import_customers(excel_file):
         brand_supplies = []
         basic_info = None
         for row in ws.values:
+            print("Row: ", row)
             if i >= 3:  # first 2 are headers
                 params = {}
                 for j, key in enumerate(data.keys()):
@@ -154,8 +155,8 @@ def import_customers(excel_file):
                     if params['brand'][0]:
                         brand_supplies.append(brand_supply(params))
             else:
-                if len(row) < 33:
-                    # print('Not enough columns: ', len(row))
+                if len(row) < 32:
+                    print('Not enough columns: ', len(row))
                     break
             i += 1
         if basic_info:  # Next record
