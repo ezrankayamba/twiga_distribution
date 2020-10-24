@@ -77,19 +77,24 @@ def update_survey(data, customer_id):
         if loc:
             info.update(loc)
     customer = models.Customer.objects.get(pk=customer_id)
-    models.Customer.objects.filter(id=customer_id).update(**info)
-    models.Contact.objects.filter(customer=customer).delete()
-    models.Record.objects.filter(customer=customer).update(trushed=True)
+    customer.__dict__.update(**info)
+    customer.save()
 
+    models.Contact.objects.filter(customer=customer).delete()
     for c in contacts:
         if 'idx' in c:
             del c['idx']
+        if 'id' in c:
+            del c['id']
         c.update({'customer': customer})
         models.Contact.objects.create(**c)
 
-        desc.update({'customer': customer})
-        models.Description.objects.filter(customer=customer).update(**desc)
+    desc.update({'customer': customer})
+    description = models.Description.objects.filter(customer=customer).first()
+    description.__dict__.update(**desc)
+    description.save()
 
+    models.Record.objects.filter(customer=customer).delete()
     for c in supply:
         # print(c)
         if 'idx' in c:

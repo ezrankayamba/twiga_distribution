@@ -10,6 +10,7 @@ import LocationUtils from "../../../_helpers/LocationUtils";
 import { connect } from "react-redux";
 import Modal from "../../modal/Modal";
 import MapPicker from "./MapPicker";
+import MatIcon from "../icons/MatIcon";
 
 @connect((state) => {
   return {
@@ -118,24 +119,27 @@ class InputControl extends Component {
                   className="btn btn-link p-0 pr-2"
                   onClick={() => onShowPopup(field.name)}
                 >
-                  <IconAdd />
+                  <MatIcon name="add" />
                 </button>
               )}
               {field.type === "location" && (
-                <div>
+                <div className="flex location-controls">
                   <button
                     type="button"
                     className="btn btn-sm btn-link p-0 pl-2 pr-2"
                     onClick={this.captLoc.bind(this)}
+                    title="Capture GPS"
                   >
-                    <IconCaptureLocation />
+                    <MatIcon name="gps_fixed" />
                   </button>
                   <button
                     type="button"
                     className="btn btn-sm btn-link p-0 pl-2 pr-2"
                     onClick={this.selectFrmMap.bind(this)}
+                    title="Pick Map Point"
                   >
-                    <IconMap />
+
+                    <MatIcon name="add_location_alt" />
                   </button>
                 </div>
               )}
@@ -146,7 +150,8 @@ class InputControl extends Component {
                     className="btn btn-link p-0 pl-2 pr-2"
                     onClick={this.addValue.bind(this)}
                   >
-                    <IconAddNew className="p-0" />
+                    {/* <IconAddNew className="p-0" /> */}
+                    <MatIcon name="add_ic_call" />
                   </button>
                 </div>
               )}

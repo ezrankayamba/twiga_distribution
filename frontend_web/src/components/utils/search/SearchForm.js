@@ -20,7 +20,7 @@ export const SearchForm = ({ searchFields, onSearch }) => {
   let search = (e) => {
     e.preventDefault();
     if (onSearch) {
-      onSearch(data, (res) => {});
+      onSearch(data, (res) => { });
     }
   };
   return (

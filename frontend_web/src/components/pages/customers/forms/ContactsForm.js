@@ -22,6 +22,7 @@ class ContactsForm extends Component {
     this.state = {
       records: data || [],
       newRecord: false,
+      selected: null,
     };
     this.onNewRecordSubmit = this.onNewRecordSubmit.bind(this);
   }
@@ -39,24 +40,38 @@ class ContactsForm extends Component {
     records.push({ ...data, idx: max + 1 });
     this.setState({ records });
   }
-
+  onRowClick(_, selected) {
+    console.log("Selected: ", selected);
+    this.setState({ selected, newRecord: true });
+  }
   render() {
     const { setup } = this.props;
-    const { records, newRecord } = this.state;
+    const { records, newRecord, selected } = this.state;
     const notEmpty = (val) => val || false;
     const errorMsg = "This field is required";
     const columns = [
       {
+        field: "id",
+        type: "hidden",
+        value: selected ? selected.id : null,
+      },
+      {
+        field: "idx",
+        type: "hidden",
+        value: selected ? selected.idx : null,
+      },
+      {
         field: "name",
         title: "Name",
+        value: selected ? selected.name : null,
         validator: {
           valid: notEmpty,
           error: errorMsg,
         },
       },
-      { field: "position", title: "Position" },
-      { field: "email", title: "Email" },
-      { field: "mobile", title: "Mobile phone(s)", many: true },
+      { field: "position", title: "Position", value: selected ? selected.position : null },
+      { field: "email", title: "Email", value: selected ? selected.email : null },
+      { field: "mobile", title: "Mobile phone(s)", value: selected ? selected.mobile : null, many: true },
       {
         field: "action",
         title: "Action",
@@ -64,7 +79,11 @@ class ContactsForm extends Component {
           return (
             <button
               className="btn btn-sm btn-link text-danger p-0"
-              onClick={() => this.onDelete(row)}
+              onClick={(e) => {
+                e.stopPropagation();
+                this.onDelete(row);
+              }
+              }
             >
               <MatIcon name="delete" />
             </button>
@@ -98,7 +117,7 @@ class ContactsForm extends Component {
             </button>
           </div>
         </div>
-        <CrudTable columns={columns} data={records} />
+        <CrudTable onRowClick={this.onRowClick.bind(this)} columns={columns} data={records} />
         {records.length > 0 && (
           <button
             type="button"
@@ -116,8 +135,8 @@ class ContactsForm extends Component {
         {newRecord && (
           <Modal
             modalId="contactsForm"
-            title="New Record"
-            handleClose={() => this.setState({ newRecord: false })}
+            title="Contact Person"
+            handleClose={() => this.setState({ newRecord: false, selected: null })}
             content={<CommonForm meta={form} />}
           />
         )}

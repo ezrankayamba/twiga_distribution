@@ -38,7 +38,7 @@ div.col:last-child > .no-rounds {
   border-top: 0.84rem solid transparent;
   border-bottom: 0.84rem solid transparent;
   border-left: 0.5rem solid rgb(168, 168, 214);
-  margin-right: -0.5rem;
+  margin-right: -0.40rem;
   position: absolute;
   right: 0;
   top: 0;
@@ -58,7 +58,7 @@ div.col:last-child > .no-rounds {
   height: 0;
   border-top: 0.9rem solid rgb(168, 168, 214);
   border-bottom: 0.86rem solid rgb(168, 168, 214);
-  border-right: 0.5rem solid transparent;
+  border-right: 0.55rem solid transparent;
   margin-left: -0.5rem;
   position: absolute;
   left: 0;

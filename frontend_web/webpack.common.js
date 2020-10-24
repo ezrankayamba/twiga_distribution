@@ -1,5 +1,5 @@
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
@@ -17,11 +17,6 @@ module.exports = {
             template: "index.html",
             filename: "index.html",
             inject: 'body'
-        }),
-        new webpack.DefinePlugin({ // <-- key to reducing React's size
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
         }),
         new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
     ],

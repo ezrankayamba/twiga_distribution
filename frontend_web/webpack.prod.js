@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const EventHooksPlugin = require('event-hooks-webpack-plugin');
 const { PromiseTask } = require('event-hooks-webpack-plugin/lib/tasks');
 const fs = require('fs');
+const webpack = require('webpack');
 
 module.exports = merge(common, {
     mode: 'production',
@@ -25,7 +26,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new CopyPlugin([
-            {from: 'static', to: ''},
+            { from: 'static', to: '' },
         ]),
         new EventHooksPlugin({
             done: new PromiseTask(async (res) => {
@@ -39,6 +40,11 @@ module.exports = merge(common, {
                     console.log('app.bundle.js file was copied successfully');
                 });
             })
-        })
+        }),
+        new webpack.DefinePlugin({ // <-- key to reducing React's size
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
     ],
 });

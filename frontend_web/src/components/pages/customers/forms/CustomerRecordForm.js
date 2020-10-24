@@ -60,6 +60,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
   };
   const submitSurvey = () => {
     let sanitized = DataSanitizer.sanitize(formData);
+
     if (newRecord) {
       CRUD.create("/tracking/survey", user.token, sanitized, {
         onSuccess: surveySubmitted,
@@ -67,6 +68,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
       });
     } else {
       let customerId = sanitized["Customer Information"].id;
+      console.log(sanitized)
       CRUD.update(`/tracking/survey/${customerId}`, user.token, sanitized, {
         onSuccess: surveySubmitted,
         onFail: surveySubmitted,

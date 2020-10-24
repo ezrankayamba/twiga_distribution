@@ -9,14 +9,13 @@ import {
 import { connect } from "react-redux";
 import BasicCrudView from "../../utils/crud/BasicCrudView";
 import LoadingIndicator from "../../utils/loading/LoadingIndicator";
-import { IconPlus, IconMap } from "../../utils/icons/Incons";
+import { IconMap } from "../../utils/icons/Incons";
 import { DateTime } from "../../../_helpers/DateTime";
 import CRUD from "../../../_services/CRUD";
 import CustomerRecordForm from "./forms/CustomerRecordForm";
 import Modal from "../../modal/Modal";
 import MatIcon from "../../utils/icons/MatIcon";
 import BulkCustomersUploadForm from "./forms/BulkCustomersUploadForm";
-import Numbers from "../../../_helpers/Numbers";
 
 @connect((state) => {
   return {

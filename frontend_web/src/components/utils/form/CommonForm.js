@@ -45,8 +45,8 @@ class CommonForm extends Component {
       errors[field.name] = v.valid(value)
         ? ""
         : v.error
-        ? v.error
-        : "Invalid entry";
+          ? v.error
+          : "Invalid entry";
     }
     return errors;
   }
@@ -175,8 +175,37 @@ class CommonForm extends Component {
           className="pl-2 pr-2"
           encType={meta.encType}
         >
+          {meta.fields.filter(f => f.type === 'hidden').map((f) => {
+            return (
+              <div key={f.name} className="mb-2">
+                <InputControl
+                  onShowPopup={this.props.onShowPopup}
+                  field={f}
+                  value={
+                    f.other && newOptions && newOptions[f.name]
+                      ? newOptions[f.name].id
+                      : data[f.name]
+                        ? data[f.name]
+                        : ""
+                  }
+                  name={f.name}
+                  id={f.name}
+                  className="form-control"
+                  onChange={this.handleChange}
+                  noValidate
+                  errors={errors}
+                  setChanged={this.setChanged}
+                />
+                {f.info && (
+                  <div className="info">
+                    <small>{f.info}</small>
+                  </div>
+                )}
+              </div>
+            );
+          })}
           <div className="form-content">
-            {meta.fields.map((f) => {
+            {meta.fields.filter(f => f.type !== 'hidden').map((f) => {
               return (
                 <div key={f.name} className="mb-2">
                   <InputControl
@@ -186,8 +215,8 @@ class CommonForm extends Component {
                       f.other && newOptions && newOptions[f.name]
                         ? newOptions[f.name].id
                         : data[f.name]
-                        ? data[f.name]
-                        : ""
+                          ? data[f.name]
+                          : ""
                     }
                     name={f.name}
                     id={f.name}

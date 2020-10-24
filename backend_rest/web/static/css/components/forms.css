@@ -7,6 +7,20 @@
 .form-footer {
   padding: 0.4rem;
 }
+/* #CustomerDetailsForm  .form-content,
+#newCustomerForm .form-content{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  max-width: 30em;
+} */
+.location-controls {
+  font-size: .6em;
+}
+.location-controls .btn,
+.location-controls button {
+  padding: 0;
+}
 
 .form-wrap {
   border: 1px solid #e1e1e1;
@@ -48,24 +62,7 @@
   display: flex;
   align-items: center;
 }
-@media only screen and (min-width: 768px) {
-  .form.search {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .search .form-content {
-    flex: auto;
-    display: flex;
-    justify-content: left;
-  }
-  .search .form-group {
-    margin-right: 0.5rem;
-  }
-  .search .form-control {
-    width: auto;
-  }
-}
+
 .checkbox-wrap {
   display: flex;
   align-items: baseline;
@@ -96,4 +93,33 @@
 textarea {
   min-height: 1em;
   width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  .form.search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .search .form-content {
+    flex: auto;
+    display: flex;
+    justify-content: left;
+  }
+  .search .form-group {
+    margin-right: 0.5rem;
+  }
+  .search .form-control {
+    width: auto;
+  }
+  #CustomerDetailsForm  .form-content,
+  #newCustomerForm .form-content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5em;
+    max-width: 100vw;
+  }
+  #CustomerDetailsForm  .form-content > div,
+  #newCustomerForm  .form-content > div {
+    flex-basis: calc(50% - .25em);
+  }
 }

@@ -31,7 +31,7 @@ class BrandSupplyForm extends Component {
     this.onNewRecordSubmit = this.onNewRecordSubmit.bind(this);
   }
 
-  refresh() {}
+  refresh() { }
 
   componentDidMount() {
     CRUD.list("/tracking/suppliers", this.props.user.token, {

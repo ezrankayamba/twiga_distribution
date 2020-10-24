@@ -30,3 +30,15 @@ th {
 th {
   padding: 10px 4px;
 }
+.table-scrollable {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 56vh;
+  max-width: 100vw;
+}
+
+.table-scrollable thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fcfc;
+}

@@ -50,7 +50,7 @@ class CrudTable extends React.Component {
           <SearchForm onSearch={onSearch} searchFields={searchFields} />
         )}
         <div className="table-scrollable">
-          <table className="table table-sm table-hover table-bordered mb-0">
+          <table className="table table-sm table-hover table-bordered mb-0 table-scrollable">
             <thead className="border-none">
               <tr className="border-none">
                 {columns.map(
