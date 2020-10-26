@@ -34,14 +34,14 @@ def brand_supply(data_set):
     brand_name = get_val(data_set, 'brand')
     if not brand_name:
         return None
-    brand = s_models.Brand.objects.filter(name=brand_name).first()
+    brand = s_models.Brand.objects.filter(name__iexact=brand_name).first()
     if not brand:
-        brand = s_models.Brand.objects.create(name=brand_name)
+        brand = s_models.Brand.objects.create(name=brand_name.title())
 
     supplier_name = get_val(data_set, 'supplier')
     if not supplier_name:
         return None
-    supplier = models.Customer.objects.filter(name=supplier_name).first()
+    supplier = models.Customer.objects.filter(name__iexact=supplier_name).first()
     if not supplier:
         cat_info = {
             'name': 'Cement Factory'
@@ -77,19 +77,19 @@ def customer_desc(data_set):
 
 def customer_info(data_set):
     region_name = get_val(data_set, 'region')
-    region = s_models.Region.objects.filter(name=region_name).first()
+    region = s_models.Region.objects.filter(name__iexact=region_name).first()
     if not region:
-        region = s_models.Region.objects.create(name=region_name)
+        region = s_models.Region.objects.create(name=region_name.title())
     district_name = get_val(data_set, 'district')
-    district = s_models.District.objects.filter(name=district_name, region=region).first()
+    district = s_models.District.objects.filter(name__iexact=district_name, region=region).first()
     if not district:
-        district = s_models.District.objects.create(name=district_name, region=region)
+        district = s_models.District.objects.create(name=district_name.title(), region=region)
     category_name = get_val(data_set, 'category')
     if not category_name:
         return None
-    category = s_models.Category.objects.filter(name=category_name).first()
+    category = s_models.Category.objects.filter(name__iexact=category_name).first()
     if not category:
-        category = s_models.Category.objects.create(name=category_name)
+        category = s_models.Category.objects.create(name=category_name.title())
     return {
         "name": data_set['name'][1],
         "town": data_set['town'][1],

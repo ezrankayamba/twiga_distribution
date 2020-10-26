@@ -28,7 +28,7 @@ def save_new_survey(data):
         loc = parse_loc(info['location'])
         del info['location']
         info.update(loc)
-    customer = models.Customer.objects.filter(name=info['name']).first()
+    customer = models.Customer.objects.filter(name__iexact=info['name']).first()
     if not customer:
         customer = models.Customer.objects.create(**info)
     else:

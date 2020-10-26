@@ -4,6 +4,7 @@ import CrudTable from "../../../utils/crud/CrudTable";
 import Modal from "../../../modal/Modal";
 import CommonForm from "../../../utils/form/CommonForm";
 import MatIcon from "../../../utils/icons/MatIcon";
+import Numbers from "../../../../_helpers/Numbers";
 
 @connect((state) => {
   return {
@@ -123,7 +124,11 @@ class ContactsForm extends Component {
             </button>
           </div>
         </div>
-        <CrudTable onRowClick={this.onRowClick.bind(this)} columns={columns} data={records} />
+        <CrudTable onRowClick={this.onRowClick.bind(this)} columns={columns} data={records.map(r => {
+          return {
+            ...r, mobile: Numbers.mobile(r.mobile), mobile_alt: Numbers.mobile(r.mobile_alt)
+          }
+        })} />
         {records.length > 0 && (
           <button
             type="button"
