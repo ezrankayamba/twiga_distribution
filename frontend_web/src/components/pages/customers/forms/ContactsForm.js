@@ -35,9 +35,13 @@ class ContactsForm extends Component {
   onNewRecordSubmit(data) {
     this.setState({ newRecord: false });
     let records = this.state.records;
-    let max = Math.max(records.map((r) => r.idx));
+    if (data.idx) {
+      records = records.filter((r) => parseInt(r.idx) !== parseInt(data.idx));
+    }
+
+    let idx = Math.max(records.map((r) => r.idx)) + 1;
     console.log(data);
-    records.push({ ...data, idx: max + 1 });
+    records.push({ ...data, idx });
     this.setState({ records });
   }
   onRowClick(_, selected) {
@@ -71,7 +75,9 @@ class ContactsForm extends Component {
       },
       { field: "position", title: "Position", value: selected ? selected.position : null },
       { field: "email", title: "Email", value: selected ? selected.email : null },
-      { field: "mobile", title: "Mobile phone(s)", value: selected ? selected.mobile : null, many: true },
+      { field: "email_alt", title: "Alt. Email", value: selected ? selected.email_alt : null },
+      { field: "mobile", title: "Mobile phone", value: selected ? selected.mobile : null },
+      { field: "mobile_alt", title: "Alt. Mobile phone", value: selected ? selected.mobile_alt : null },
       {
         field: "action",
         title: "Action",

@@ -38,30 +38,42 @@ def brand_supply(data_set):
     if not brand:
         brand = s_models.Brand.objects.create(name=brand_name)
 
-    region_name = get_val(data_set, 'region')
-    region = s_models.Region.objects.filter(name=region_name).first()
-    if not region:
-        region = s_models.Region.objects.create(name=region_name)
-    district_name = get_val(data_set, 'district')
-    district = s_models.District.objects.filter(name=district_name, region=region).first()
-    if not district:
-        district = s_models.District.objects.create(name=district_name, region=region)
-    category_name = get_val(data_set, 'category')
-    if not category_name:
-        return None
-    category = s_models.Category.objects.filter(name=category_name).first()
-    if not category:
-        category = s_models.Category.objects.create(name=category_name)
+    # region_name = get_val(data_set, 'region')
+    # region = s_models.Region.objects.filter(name=region_name).first()
+    # if not region:
+    #     region = s_models.Region.objects.create(name=region_name)
+    # district_name = get_val(data_set, 'district')
+    # district = s_models.District.objects.filter(name=district_name, region=region).first()
+    # if not district:
+    #     district = s_models.District.objects.create(name=district_name, region=region)
+    # category_name = get_val(data_set, 'category')
+    # if not category_name:
+    #     return None
+    # category = s_models.Category.objects.filter(name=category_name).first()
+    # if not category:
+    #     category = s_models.Category.objects.create(name=category_name)
 
-    cust_name = get_val(data_set, 'name')
-    cust = models.Customer.objects.filter(name=cust_name).first()
-    if not cust:
-        cust = models.Customer.objects.create(name=cust_name, region=region, district=district, category=category)
+    supplier_name = get_val(data_set, 'supplier')
+    if not supplier_name:
+        return None
+    supplier = models.Customer.objects.filter(name=supplier_name).first()
+    if not supplier:
+        cat_info = {
+            'name': 'Cement Factory'
+        }
+        factory_category, _ = s_models.Category.objects.get_or_create(**cat_info)
+        factory_category.is_supplier = True
+        factory_category.save()
+        supplier = models.Customer.objects.create(name=supplier_name, category=factory_category)
+    else:
+        category = supplier.category
+        category.is_supplier = True
+        category.save()
 
     return{
         "volume": get_val(data_set, 'monthly_sale'),
         "brand_id": brand.id,
-        "supplier_id": cust.id
+        "supplier_id": supplier.id
     }
 
 
@@ -166,9 +178,9 @@ def import_customers(excel_file):
     print("Records: ", len(batch))
     for line in batch:
         utils.save_new_survey(line)
-        # if 'Mwita Ikohi' in json.dumps(line):
-        #     print(line)
-        #     break
+
+    # for line in batch:
+    #     utils.save_new_survey(line)
 
 
 def start():

@@ -74,9 +74,9 @@ class List extends Component {
             customers: res.data.map((c) => {
               return {
                 ...c,
-                region: c.region.name,
-                district: c.district.name,
-                category: c.category.name,
+                region: c.region ? c.region.name : null,
+                district: c.district ? c.district.name : null,
+                category: c.category ? c.category.name : null,
                 created_at: DateTime.fmt(c.created_at),
                 location: c.lat ? `(${c.lat}, ${c.lng})` : null,
                 share: `${this.getShare(c)}`,
