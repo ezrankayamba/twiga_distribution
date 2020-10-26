@@ -13,6 +13,7 @@
 @import "./components/utils.css";
 @import "./components/maps.css";
 @import "./components/snackbar.css";
+@import "./components/dashboard.css";
 
 :root {
   --brand-color: #ffd400;

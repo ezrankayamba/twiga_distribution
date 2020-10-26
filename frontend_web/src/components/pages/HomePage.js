@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
-import LocationFromMap from "./customers/forms/LocationMap";
-import {IconLoading} from "../utils/icons/Incons";
-import LoadingIndicator from "../utils/loading/LoadingIndicator";
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import ShareByCategoryGraph from './dashboard/ShareByCategoryGraph';
+import ShareByRegionGraph from './dashboard/ShareByRegionGraph';
 
 @connect((state) => {
     return {
@@ -13,7 +12,7 @@ import LoadingIndicator from "../utils/loading/LoadingIndicator";
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {file: null}
+        this.state = { file: null }
         this.onChange = this.onChange.bind(this)
     }
 
@@ -22,16 +21,14 @@ class HomePage extends Component {
     }
 
     onChange(e) {
-        this.setState({file: e.target.files[0]})
+        this.setState({ file: e.target.files[0] })
     }
 
     render() {
-        const {user, loggedIn} = this.props
         return (
-            <div className="">
-                <div className="">
-                    <h5>Home page/dashboard</h5>
-                </div>
+            <div className="dashboard">
+                <ShareByCategoryGraph token={this.props.user.token} />
+                <ShareByRegionGraph token={this.props.user.token} />
             </div>
         )
     }

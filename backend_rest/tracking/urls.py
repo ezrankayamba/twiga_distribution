@@ -1,5 +1,5 @@
 from django.urls import path, include
-from . import views
+from . import views, reports
 
 urlpatterns = [
     path('customers', views.CustomerListView.as_view()),
@@ -10,4 +10,6 @@ urlpatterns = [
     path('survey/bulk', views.BulkCustomerUpload.as_view()),
     path('survey/<int:customer_id>', views.CustomerSurveyDataView.as_view()),
     path('customers-for-map', views.ListCustomersForMap.as_view()),
+    path('reports/share-by-category', reports.get_share_by_category),
+    path('reports/share-by-region', reports.get_share_by_region),
 ]
