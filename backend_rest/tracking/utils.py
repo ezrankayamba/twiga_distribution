@@ -35,32 +35,6 @@ def save_new_survey(data):
         models.Customer.objects.filter(pk=customer.id).update(**info)
         print("Updated customer: ", info)
     update_survey(data, customer.id)
-    # for c in contacts:
-    #     if 'idx' in c:
-    #         del c['idx']
-    #     c.update({'customer': customer})
-    #     if c['name']:
-    #         obj, created = models.Contact.objects.get_or_create(**c)
-
-    # desc.update({'customer': customer})
-    # try:
-    #     obj, created = models.Description.objects.get_or_create(**desc)
-    # except Exception as e:
-    #     print(e)
-    #     print(desc)
-
-    # for c in supply:
-    #     # print(c)
-    #     if not c:
-    #         continue
-    #     if 'idx' in c:
-    #         del c['idx']
-    #     c.update({'customer': customer})
-    #     try:
-    #         obj, created = models.Record.objects.get_or_create(**c)
-    #     except Exception as e:
-    #         print(e)
-    #         print(c)
 
 
 def update_survey(data, customer_id):
@@ -70,7 +44,6 @@ def update_survey(data, customer_id):
     supply = data['Brand(s) Supplied']
     if 'location' in info:
         loc = parse_loc(info['location'])
-        # print(loc)
         del info['location']
         if loc:
             info.update(loc)
@@ -90,9 +63,14 @@ def update_survey(data, customer_id):
 
     desc.update({'customer': customer})
     description = models.Description.objects.filter(customer=customer).first()
-    if description:
-        description.__dict__.update(**desc)
-        description.save()
+    try:
+        if description:
+            description.__dict__.update(**desc)
+            description.save()
+        else:
+            models.Description.objects.create(**desc)
+    except:
+        pass
 
     models.Record.objects.filter(customer=customer).delete()
     for c in supply:

@@ -38,21 +38,6 @@ def brand_supply(data_set):
     if not brand:
         brand = s_models.Brand.objects.create(name=brand_name)
 
-    # region_name = get_val(data_set, 'region')
-    # region = s_models.Region.objects.filter(name=region_name).first()
-    # if not region:
-    #     region = s_models.Region.objects.create(name=region_name)
-    # district_name = get_val(data_set, 'district')
-    # district = s_models.District.objects.filter(name=district_name, region=region).first()
-    # if not district:
-    #     district = s_models.District.objects.create(name=district_name, region=region)
-    # category_name = get_val(data_set, 'category')
-    # if not category_name:
-    #     return None
-    # category = s_models.Category.objects.filter(name=category_name).first()
-    # if not category:
-    #     category = s_models.Category.objects.create(name=category_name)
-
     supplier_name = get_val(data_set, 'supplier')
     if not supplier_name:
         return None
@@ -178,9 +163,6 @@ def import_customers(excel_file):
     print("Records: ", len(batch))
     for line in batch:
         utils.save_new_survey(line)
-
-    # for line in batch:
-    #     utils.save_new_survey(line)
 
 
 def start():

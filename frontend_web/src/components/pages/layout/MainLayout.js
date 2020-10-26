@@ -17,14 +17,14 @@ class MainLayout extends Component {
     const { avatarOn } = this.state;
     return (
       <>
-        <header class="navbar">
-          <div class="menu sidebar-menu-toggle">
-            <i class="material-icons">menu</i>
+        <header className="navbar">
+          <div className="menu sidebar-menu-toggle">
+            <i className="material-icons">menu</i>
           </div>
-          <div class="navbar-title">
+          <div className="navbar-title">
             DISTRIBUTION <i className="small text-warning">TRACKING TOOL</i>
           </div>
-          <div class={`avatar${avatarOn ? " on" : ""}`}>
+          <div className={`avatar${avatarOn ? " on" : ""}`}>
             <img
               src="https://via.placeholder.com/150"
               alt=""
@@ -41,8 +41,8 @@ class MainLayout extends Component {
           </div>
         </header>
         <SideMenu />
-        <section class="main-content-wraper">
-          <div class="main-content">
+        <section className="main-content-wraper">
+          <div className="main-content">
             <Pages />
           </div>
         </section>

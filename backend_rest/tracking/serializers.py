@@ -18,10 +18,19 @@ class DescriptionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SupplierSerializer(serializers.ModelSerializer):
+    category = CategorySerializer
+
+    class Meta:
+        model = models.Customer
+        fields = '__all__'
+        depth = 3
+
+
 class RecordSerializer(serializers.ModelSerializer):
     # customer = CustomerSerializer(many=False, read_only=True)
     brand = BrandSerializer(many=False, read_only=True)
-    # supplier = CustomerSerializer(many=False, read_only=True)
+    supplier = SupplierSerializer(many=False, read_only=True)
 
     class Meta:
         model = models.Record

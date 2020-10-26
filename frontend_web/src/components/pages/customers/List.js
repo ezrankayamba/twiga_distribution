@@ -291,6 +291,7 @@ class List extends Component {
                 surveySubmitted={this.surveySubmitted}
                 user={this.props.user}
                 data={selected}
+                suppliers={suppliers}
               />
             }
           />

@@ -26,7 +26,7 @@ const init = () => {
     sidebar.classList.remove("slideInLeft");
     sidebar.addEventListener("animationend", hideCompleted);
   };
-  console.log(sidebar, toggle);
+
   if (sidebar && toggle) {
     toggle.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -86,16 +86,16 @@ class SideMenu extends Component {
 
     let privileges = getPrivileges(user);
     return (
-      <aside class="sidebar sidebar-left animated fast">
-        <div class="sidebar-content">
-          <div class="sidebar-title">
+      <aside className="sidebar sidebar-left animated fast">
+        <div className="sidebar-content">
+          <div className="sidebar-title">
             <span>Twiga Cement</span>
-            <span class="material-icons sidebar-close">close</span>
+            <span className="material-icons sidebar-close">close</span>
           </div>
-          <ul class="sidebar-menu">
+          <ul className="sidebar-menu">
             {getMenus(loggedIn, privileges).map((item) => {
               return (
-                <li>
+                <li key={item.id}>
                   <NavLink
                     key={item.id}
                     to={item.path}

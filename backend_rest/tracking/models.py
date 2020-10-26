@@ -26,10 +26,10 @@ class Customer(models.Model):
 class Description(models.Model):
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
     fleet_size = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    trucks = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    trucks = models.IntegerField(default=0)
     system = models.CharField(max_length=100, null=True)
-    outlets = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    machines = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    outlets = models.IntegerField(default=0)
+    machines = models.IntegerField(default=0)
     types = models.CharField(max_length=100, null=True)
     business = models.CharField(max_length=100)
 

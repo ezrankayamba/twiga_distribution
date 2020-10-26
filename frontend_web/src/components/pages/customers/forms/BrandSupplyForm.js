@@ -25,7 +25,6 @@ class BrandSupplyForm extends Component {
       records: data || [],
       newRecord: false,
       brands: [],
-      suppliers: [],
       selected: null,
     };
     this.onNewRecordSubmit = this.onNewRecordSubmit.bind(this);
@@ -34,9 +33,9 @@ class BrandSupplyForm extends Component {
   refresh() { }
 
   componentDidMount() {
-    CRUD.list("/tracking/suppliers", this.props.user.token, {
-      onSuccess: (suppliers) => this.setState({ suppliers }),
-    });
+    // CRUD.list("/tracking/suppliers", this.props.user.token, {
+    //   onSuccess: (suppliers) => this.setState({ suppliers }),
+    // });
     CRUD.list("/setups/brands", this.props.user.token, {
       onSuccess: (brands) => this.setState({ brands }),
     });
@@ -52,7 +51,7 @@ class BrandSupplyForm extends Component {
     let brand = this.state.brands.find(
       (b) => data.brand_id && b.id === parseInt(data.brand_id)
     );
-    let supplier = this.state.suppliers.find(
+    let supplier = this.props.suppliers.find(
       (b) => data.supplier_id && b.id === parseInt(data.supplier_id)
     );
     let idx = Math.max(records.map((r) => r.idx)) + 1;
@@ -68,7 +67,8 @@ class BrandSupplyForm extends Component {
     this.setState({ selected, newRecord: true });
   }
   render() {
-    const { records, newRecord, suppliers, brands, selected } = this.state;
+    const { records, newRecord, brands, selected } = this.state;
+    const { suppliers } = this.props;
     const notEmpty = (val) => val || false;
     const errorMsg = "This field is required";
     const columns = [
@@ -154,6 +154,9 @@ class BrandSupplyForm extends Component {
       return supp ? supp.name : r.supplier_id;
     };
 
+    // if (suppliers.length === 0) {
+    //   return <p className="p-2">Loading ...</p>
+    // }
     return (
       <div>
         <div className="d-flex justify-content-between">

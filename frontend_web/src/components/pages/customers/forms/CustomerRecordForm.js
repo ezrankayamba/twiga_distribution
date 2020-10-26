@@ -6,7 +6,7 @@ import DescriptionForm from "./DescriptionForm";
 import BrandSupplyForm from "./BrandSupplyForm";
 import CRUD from "../../../../_services/CRUD";
 import DataSanitizer from "../DataSanitizer";
-const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
+const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord, suppliers }) => {
   const [tab, setTab] = useState(0);
   const [formData, setFormData] = useState(data || {});
 
@@ -48,6 +48,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
         <BrandSupplyForm
           data={formData[tab.name]}
           onTabSubmit={(data) => onTabSubmit(tab, data)}
+          suppliers={suppliers}
         />
       ),
     },
@@ -83,7 +84,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
             key={pos}
             disabled={pos > stage}
             onClick={() => setTab(pos)}
-            className={tab === pos && "btn-active"}
+            className={tab === pos ? "btn-active" : ""}
           >
             {t.label}
           </button>
@@ -91,7 +92,7 @@ const CustomerRecordForm = ({ user, data, surveySubmitted, newRecord }) => {
       </div>
       <div className="tab-content">
         {tabs.map(
-          (T, pos) => tab === pos && <T.render name={T.name} pos={pos} />
+          (T, pos) => tab === pos && <T.render key={T.name} name={T.name} pos={pos} />
         )}
       </div>
       <div className="tab-footer">

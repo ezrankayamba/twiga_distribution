@@ -48,6 +48,11 @@ class SupplierListView(generics.ListAPIView):
     def get_queryset(self):
         return models.Customer.objects.filter(category__is_supplier=True)
 
+    def paginate_queryset(self, queryset):
+        if self.paginator and self.request.query_params.get(self.paginator.page_query_param, None) is None:
+            return None
+        return super().paginate_queryset(queryset)
+
 
 class ListCustomersForMap(APIView):
     def get(self, request):
@@ -78,8 +83,7 @@ class CustomerSurveyDataView(APIView):
         info['location'] = utils.serializer_loc(info['lat'], info['lng'])
         contacts = serializers.ContactSerializer(models.Contact.objects.filter(customer=cust), many=True).data
         desc = serializers.DescriptionSerializer(models.Description.objects.filter(customer=cust).first()).data
-        supply = serializers.RecordSerializer(models.Record.objects.filter(
-            customer=cust, trushed=False), many=True).data
+        supply = serializers.RecordSerializer(models.Record.objects.filter(customer=cust, trushed=False), many=True).data
         res = {
             'Customer Information': info,
             'Customer Contacts': contacts,
