@@ -17,7 +17,7 @@ class DescriptionForm extends Component {
     this.props.onTabSubmit(data);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onOtherSubmit(field, { id, name }) {
     this.props.addOption(field, { id, name });
@@ -46,7 +46,7 @@ class DescriptionForm extends Component {
           name: "fleet_size",
           label: "Fleet Size",
           type: "number",
-          value: data.fleet_size,
+          value: data.fleet_size || '0',
           validator: {
             valid: notEmpty,
             error: errorMsg,
@@ -54,9 +54,9 @@ class DescriptionForm extends Component {
         },
         {
           name: "trucks",
-          label: "Number of trucks",
+          label: "Number of re-distribution trucks",
           type: "number",
-          value: data.trucks,
+          value: data.trucks || '0',
           validator: {
             valid: notEmpty,
             error: errorMsg,
@@ -65,7 +65,7 @@ class DescriptionForm extends Component {
         {
           name: "system",
           label: "IT system",
-          value: data.system,
+          value: data.system || 'None',
           validator: {
             valid: notEmpty,
             error: errorMsg,
@@ -85,7 +85,7 @@ class DescriptionForm extends Component {
           name: "machines",
           label: "Number of machines",
           type: "number",
-          value: data.machines,
+          value: data.machines || '0',
           validator: {
             valid: notEmpty,
             error: errorMsg,
@@ -94,7 +94,7 @@ class DescriptionForm extends Component {
         {
           name: "types",
           label: "Type of machines",
-          value: data.types,
+          value: data.machines ? data.types : 'Not applicable',
           validator: {
             valid: notEmpty,
             error: errorMsg,

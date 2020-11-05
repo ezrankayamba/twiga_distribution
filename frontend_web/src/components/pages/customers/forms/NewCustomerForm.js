@@ -55,10 +55,24 @@ class NewCustomerForm extends Component {
     this.setState({ districts: region.districts });
   }
 
+  getShare(c) {
+    if (c.records.length === 0) {
+      return 0;
+    }
+    let onUs = c.records
+      .filter((r) => (r.brand ? r.brand.on_us : false))
+      .reduce((prev, curr) => prev + parseFloat(curr.volume), 0);
+    let all = c.records.reduce(
+      (prev, curr) => prev + parseFloat(curr.volume),
+      0
+    );
+    return ((100 * onUs) / all).toFixed(0);
+  }
+
   render() {
     const { onSubmit } = this.props;
     const { regions, suppliers, categories, districts } = this.state;
-    const data = this.props.data || {};
+    let data = this.props.data || {};
     const notEmpty = (val) => val || false;
     const errorMsg = "This field is required";
     let form = {
@@ -134,13 +148,14 @@ class NewCustomerForm extends Component {
         },
         {
           name: "share",
-          label: "Wallet Share",
+          label: "Share Of Wallet(%)",
           type: "number",
-          value: data.share,
+          value: this.getShare(data),
           validator: {
             valid: notEmpty,
             error: errorMsg,
           },
+          readOnly: true
         },
       ],
       onSubmit: onSubmit ? onSubmit : this.onSubmit.bind(this),

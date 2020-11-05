@@ -25,7 +25,7 @@ class Customer(models.Model):
 
 class Description(models.Model):
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
-    fleet_size = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    fleet_size = models.IntegerField(default=0)
     trucks = models.IntegerField(default=0)
     system = models.CharField(max_length=100, null=True)
     outlets = models.IntegerField(default=0)
